@@ -8,7 +8,7 @@ The major target of this project is to explore HyperColumns and how it can be us
 
 ## Task description
 A colorful image can be decomposed into three channels, such as RGB, LAB, HSL and HSV and so on.  LAB was used in this project (https://en.wikipedia.org/wiki/Lab_color_space) where L means "lightness". L-channel is the input as a gray color image, and the output will be the predicted colorful image.
-![](2.jpg)
+![](pics/2.jpg)
 Given only one channel which is corresponds to lightness or a gray color image, we are able to output a prediction of colorful image if we can recover the other two channels.
 
 
