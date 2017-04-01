@@ -15,9 +15,9 @@ Given only one channel which is corresponds to lightness or a gray color image, 
 ## Does one channel contains all information of the other two channels ?
 This is the first question many people would ask themselves at the very beginning. More specifically, does L channel contains all information of the A & B channels ? If not, how can we recover the other A channel  and B channel from L channel ?
 The answer to this question leads to the illustration of HyperColumns which can come from a pre-trained convolutional neural network (CNN) model. In this project, pre-trained VGG was adopted and tweaked. VGG was trained on huge amount of images and it contains a lot of information regarding quite many of (if not all) objects in the world. Taking advantage of VGG, we should be able to colorize the gray images. VGG as an external information contained is the essential reason why the task can be done.
-![](3.jpg)
+![](pics/3.jpg)
 Making an analogy. Given three data points, we need to output a curve to fit them. There are tons of various curves that can fit these three data points. However, what if somebody tells us (external information !) that the curve is most probably a quardratic curve ? We will produce the blue color curve.
-![](4.jpg)
+![](pics/4.jpg)
 
 Since gray color image contains only one channel, in order for VGG to be able to process one channel image the first convolutional filter of pre-trained VGG was skipped and a new filter was added. This new filter takes in one channel tensor and then output 64-channels tensor so that the rest part of VGG can continue process it.  
 Further and most importantly, a new layer was added upon it. This new layer consists of collecting the HyperColumns and "squeeze" them into a two-channels feature map which correspond to the prediction of the A channel and B channel.
@@ -26,5 +26,5 @@ Further and most importantly, a new layer was added upon it. This new layer cons
 What is HyperColumns ?
 ## HyperColumns
 The layers of a convolutional network is like as a non-linear counterpart of the image pyramids, 
-![](5.jpg)
+![](pics/5.jpg)
 
