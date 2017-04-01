@@ -2,7 +2,7 @@
 
 ## Introduction
 HyperColumnsImageColorization was the project that I created during my time as a Artifitial Intelligence Fellow with Insight Data Science in early 2017. In this project, from the pre-trained VGG model "HyperColumns" was harvested and was used to colourize the black-and-white images.
-The major target of this project is to explore HyperColumns and how it can be used in such computer vision tasks as image auto-colorizations. The training data was flower data set which was separated into train, validation and test sets. The trained model was also tested on images that are not from the flower data set, e.g., illustration pictures from books.
+The major target of this project is to explore HyperColumns and how it can be used in such computer vision tasks as image auto-colorizations. The training data was flower data set which was separated into train, validation and test sets. The trained model was also tested on images that are not from the flower data set, e.g., illustration pictures from books. The project was done in Tensorflow 1.0.1.
 
 ## Task description
 A colorful image can be decomposed into three channels, such as RGB, LAB, HSL and HSV and so on.  LAB was used in this project (https://en.wikipedia.org/wiki/Lab_color_space) where L means "lightness". L-channel is the input as a gray color image, and the output will be the predicted colorful image.
@@ -10,7 +10,7 @@ A colorful image can be decomposed into three channels, such as RGB, LAB, HSL an
 Given only one channel which is corresponds to lightness or a gray color image, we are able to output a prediction of colorful image if we can recover the other two channels.
 
 
-## Does one channel contains all information of the other two channels ?
+### Does one channel contains all information of the other two channels ?
 This is the first question many people would ask themselves at the very beginning. More specifically, does L channel contains all information of the A & B channels ? If not, how can we recover the other A channel  and B channel from L channel ?
 The answer to this question leads to the illustration of HyperColumns which can come from a pre-trained convolutional neural network (CNN) model. In this project, pre-trained VGG was adopted and tweaked. VGG was trained on huge amount of images and it contains a lot of information regarding quite many of (if not all) objects in the world. Taking advantage of VGG, we should be able to colorize the gray images. VGG as an external information contained is the essential reason why the task can be done.
 ![](pics/1.jpg)
@@ -36,4 +36,19 @@ Further and most importantly, a new model was added upon it. This new model cons
 
 Imagine the feature maps 
 ![](pics/6.jpg)
+
+### Sampled results
+Here are some sampled results. Some predicted image (top right) looks even better than the orginal one. There are also sort of failures, such as the bottom right, the statue was given some pink color.
+![](pics/9.jpg)
+
+### Tensorboard: how/which weights update during training 
+Tensorboard allows us to peek into how the network weights, in this term the filters, to change during training. Here shows some of the filters and biases:
+![](pics/b)
+Actually all filters and biases were updated to considerable extent. That is, all of the layers of VGG had been considerably updated or fine-tuned during the training. This indicates that most probably all of the feature maps are useful and they probably contains different information. None of them should be skipped. We should better incorporate all of the feature maps into our HyperColumns if we can afford to avoid information loss.
+That said, what if we only sample a portion of the feature maps ?
+
+## Simplified model
+I only picked up the output of each pool layer of VGG, upscale them, and then concatenate into a thinner HyperColumn. Apparently I lost some information that VGG has to provied, but anyway this thinner model was fine-tuned as earlier and yielded somewhat worse result like this:
+![](pic/a)
+
 
