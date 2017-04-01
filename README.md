@@ -1,9 +1,9 @@
-## Cerebrate
 
-# Quick Links
 
-Website: [cerebrate.online](http://cerebrate.online)  
-Presentation: [bit.ly/cerebrateOnline](http://bit.ly/cerebrateOnline)  
+# HyperColumns of CNN and Image Colorization
+
+#Website: [cerebrate.online](http://cerebrate.online)  
+#Presentation: [bit.ly/cerebrateOnline](http://bit.ly/cerebrateOnline)  
 
 # Introduction
 
