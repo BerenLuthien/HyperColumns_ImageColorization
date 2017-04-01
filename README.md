@@ -13,7 +13,7 @@ Given only one channel which is corresponds to lightness or a gray color image, 
 ## Does one channel contains all information of the other two channels ?
 This is the first question many people would ask themselves at the very beginning. More specifically, does L channel contains all information of the A & B channels ? If not, how can we recover the other A channel  and B channel from L channel ?
 The answer to this question leads to the illustration of HyperColumns which can come from a pre-trained convolutional neural network (CNN) model. In this project, pre-trained VGG was adopted and tweaked. VGG was trained on huge amount of images and it contains a lot of information regarding quite many of (if not all) objects in the world. Taking advantage of VGG, we should be able to colorize the gray images. VGG as an external information contained is the essential reason why the task can be done.
-![](pics/3.jpg)
+![](pics/1.jpg)
 Making an analogy. Given three data points, we need to output a curve to fit them. There are tons of various curves that can fit these three data points. However, what if somebody tells us (external information !) that the curve is most probably a quardratic curve ? We will produce the blue color curve.
 ![](pics/4.jpg)
 
