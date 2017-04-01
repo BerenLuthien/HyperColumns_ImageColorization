@@ -26,5 +26,5 @@ Further and most importantly, a new layer was added upon it. This new layer cons
 What is HyperColumns ?
 ## HyperColumns
 The layers of a convolutional network is like as a non-linear counterpart of the image pyramids, 
-![](4.jpg)
+![](5.jpg)
 
