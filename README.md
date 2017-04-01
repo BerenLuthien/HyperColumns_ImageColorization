@@ -49,6 +49,6 @@ That said, what if we only sample a portion of the feature maps ?
 
 ## Simplified model
 I only picked up the output of each pool layer of VGG, upscale them, and then concatenate into a thinner HyperColumn. Apparently I lost some information that VGG has to provied, but anyway this thinner model was fine-tuned as earlier and yielded somewhat worse result like this:
-![](pic/a)
+![](pic/a.jpg)
 
 
