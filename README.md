@@ -19,12 +19,23 @@ The answer to this question leads to the illustration of HyperColumns which can 
 Making an analogy. Given three data points, we need to output a curve to fit them. There are tons of various curves that can fit these three data points. However, what if somebody tells us (external information !) that the curve is most probably a quardratic curve ? We will produce the blue color curve.
 ![](pics/4.jpg)
 
-Since gray color image contains only one channel, in order for VGG to be able to process one channel image the first convolutional filter of pre-trained VGG was skipped and a new filter was added. This new filter takes in one channel tensor and then output 64-channels tensor so that the rest part of VGG can continue process it.  
-Further and most importantly, a new layer was added upon it. This new layer consists of collecting the HyperColumns and "squeeze" them into a two-channels feature map which correspond to the prediction of the A channel and B channel.
-
 
 What is HyperColumns ?
 ## HyperColumns
-The layers of a convolutional network is like as a non-linear counterpart of the image pyramids, 
+The layers of a convolutional network is like as a non-linear counterpart of the image pyramids. The feature maps have different sizes. The topper they are on the VGG model, the smaller their sizes are. We need them to be of the same size, i.e., the same as the size of the input gray image. Thus, the feature maps are upscaled by bilinear interpolation. Eventually, these upscaled feature maps are contatenated together to give us a HyperColumn. 
 ![](pics/5.jpg)
+### Why call it HyperColumns ?
+Looks like the author of the paper adopted this terminology from the idea of neuroscience, cortical column. 
+
+Hariharan, Bharath, et al. "Hypercolumns for object segmentation and fine-grained localization." Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2015.
+
+Here is a quick illustration from wiki: "A cortical column, also called hypercolumn, macrocolumn, functional column or sometimes cortical module, is a group of neurons in the cortex of the brain that can be successively penetrated by a probe inserted perpendicularly to the cortical surface, and which have nearly identical receptive fields."
+![](pics/cortical.jpg)
+
+## Model
+Since gray color image contains only one channel, in order for VGG to be able to process one channel image, the first convolutional filter of pre-trained VGG was replaced with a new filter. This new filter takes in one channel tensor and then output 64-channels tensor so that the rest part of VGG can continue process it.  
+Further and most importantly, a new model was added upon it. This new model consists of the harvest of the HyperColumns from VGG, also it "squeezes" the HyperColumns into a two-channels tensor which correspond to the prediction of the A channel and B channel. This process was done by 1-by-1 convolution that "stiches" the feature maps in the HyperColumns together.
+
+Imagine the feature maps 
+![](pics/6.jpg)
 
