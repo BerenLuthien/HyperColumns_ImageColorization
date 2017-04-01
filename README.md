@@ -1,5 +1,3 @@
-
-
 # HyperColumns of CNN and Image Colorization
 
 ## Introduction
