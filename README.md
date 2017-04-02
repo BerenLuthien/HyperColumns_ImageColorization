@@ -74,6 +74,7 @@ Looks like the author of the original paper adopted this terminology from some i
 
 Here is a quick illustration from wiki: "A cortical column, also called hypercolumn, macrocolumn, functional column or sometimes cortical module, is a group of neurons in the cortex of the brain that can be successively penetrated by a probe inserted perpendicularly to the cortical surface, and which have nearly identical receptive fields."
 ![](pics/cortical.jpg)
+
 This analogy is quite similar to the feature maps of CNN model.
 
 ## Model
