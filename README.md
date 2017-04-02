@@ -127,5 +127,9 @@ Apply the model on cartoon, and it did not give a satisfying result. This is wha
 ![](pics/d.jpg)
 However, once the model is trained on a specific dataset, it might be able to do a fine job on the same type of data. What if I have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author, given that the author may have a consistent style of art.
 I will be extremely excited if I can get something like this:
+
+
 ![](pics/e.jpg)
+
+
 😄
