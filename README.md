@@ -94,6 +94,7 @@ Further and most importantly, a new model was added upon it. This new model cons
                                      layer_relu4_1, layer_relu4_2, layer_relu4_3, layer_relu4_4, \
                                      layer_relu5_1, layer_relu5_2, layer_relu5_3, layer_relu5_4  \
                                     ] ,3)
+        # wc1: Weights Combiner, 1-by-1 conv
         wc1 = utils.weight_variable([1, 1, 5440, 2], name="wc1")
         wc1_biase = utils.bias_variable([2], name="wc1_biase")
         pred_AB_conv = tf.nn.conv2d(HyperColumns, wc1, [1, 1, 1, 1], padding='SAME')
