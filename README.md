@@ -21,7 +21,7 @@ Making an analogy. Given three data points, we need to output a curve to fit the
 What is HyperColumns ?
 ## HyperColumns
 The layers of a convolutional network is like as a non-linear counterpart of the image pyramids. The feature maps have different sizes. The topper they are on the VGG model, the smaller their sizes are. We need them to be of the same size, i.e., the same as the size of the input gray image. Thus, the feature maps are upscaled by bilinear interpolation. Eventually, these upscaled feature maps are contatenated together to give us a HyperColumn. 
-![](pics/5.jpg)
+![](pics/HyperColumns.jpg)
 
 
         relu1_2  = image_net["relu1_2"]
