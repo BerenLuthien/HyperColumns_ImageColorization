@@ -22,6 +22,49 @@ What is HyperColumns ?
 ## HyperColumns
 The layers of a convolutional network is like as a non-linear counterpart of the image pyramids. The feature maps have different sizes. The topper they are on the VGG model, the smaller their sizes are. We need them to be of the same size, i.e., the same as the size of the input gray image. Thus, the feature maps are upscaled by bilinear interpolation. Eventually, these upscaled feature maps are contatenated together to give us a HyperColumn. 
 ![](pics/5.jpg)
+        relu1_2  = image_net["relu1_2"]
+        layer_relu1_2 = tf.image.resize_bilinear(relu1_2, (IMAGE_SIZE, IMAGE_SIZE)) 
+
+        relu2_1  = image_net["relu2_1"]
+        layer_relu2_1 = tf.image.resize_bilinear(relu2_1, (IMAGE_SIZE, IMAGE_SIZE)) 
+        
+        relu2_2  = image_net["relu2_2"]
+        layer_relu2_2 = tf.image.resize_bilinear(relu2_2, (IMAGE_SIZE, IMAGE_SIZE)) 
+
+        relu3_1  = image_net["relu3_1"]
+        layer_relu3_1 = tf.image.resize_bilinear(relu3_1, (IMAGE_SIZE, IMAGE_SIZE))         
+        relu3_2  = image_net["relu3_2"]
+        layer_relu3_2 = tf.image.resize_bilinear(relu3_2, (IMAGE_SIZE, IMAGE_SIZE)) 
+        relu3_3  = image_net["relu3_3"]
+        layer_relu3_3 = tf.image.resize_bilinear(relu3_3, (IMAGE_SIZE, IMAGE_SIZE)) 
+        
+        relu3_4  = image_net["relu3_4"]
+        layer_relu3_4 = tf.image.resize_bilinear(relu3_4, (IMAGE_SIZE, IMAGE_SIZE))         
+        relu4_1  = image_net["relu4_1"]
+        layer_relu4_1 = tf.image.resize_bilinear(relu4_1, (IMAGE_SIZE, IMAGE_SIZE)) 
+        relu4_2  = image_net["relu4_2"]
+        layer_relu4_2 = tf.image.resize_bilinear(relu4_2, (IMAGE_SIZE, IMAGE_SIZE)) 
+        relu4_3  = image_net["relu4_3"]
+        layer_relu4_3 = tf.image.resize_bilinear(relu4_3, (IMAGE_SIZE, IMAGE_SIZE)) 
+        relu4_4  = image_net["relu4_4"]
+        layer_relu4_4 = tf.image.resize_bilinear(relu4_4, (IMAGE_SIZE, IMAGE_SIZE)) 
+        
+        relu5_1  = image_net["relu5_1"]
+        layer_relu5_1 = tf.image.resize_bilinear(relu5_1, (IMAGE_SIZE, IMAGE_SIZE))         
+        relu5_2  = image_net["relu5_2"]
+        layer_relu5_2 = tf.image.resize_bilinear(relu5_2, (IMAGE_SIZE, IMAGE_SIZE))         
+        relu5_3  = image_net["relu5_3"]
+        layer_relu5_3 = tf.image.resize_bilinear(relu5_3, (IMAGE_SIZE, IMAGE_SIZE))         
+        relu5_4  = image_net["relu5_4"]
+        layer_relu5_4 = tf.image.resize_bilinear(relu5_4, (IMAGE_SIZE, IMAGE_SIZE))        
+        
+        HyperColumns = tf.concat([layer_relu1_2, \
+                                     layer_relu2_1, layer_relu2_2, \
+                                     layer_relu3_1, layer_relu3_2, layer_relu3_3, layer_relu3_4, \
+                                     layer_relu4_1, layer_relu4_2, layer_relu4_3, layer_relu4_4, \
+                                     layer_relu5_1, layer_relu5_2, layer_relu5_3, layer_relu5_4  \
+                                    ] ,3)
+
 ### Why call it HyperColumns ?
 Looks like the author of the paper adopted this terminology from the idea of neuroscience, cortical column. 
 
@@ -32,7 +75,11 @@ Here is a quick illustration from wiki: "A cortical column, also called hypercol
 
 ## Model
 Since gray color image contains only one channel, in order for VGG to be able to process one channel image, the first convolutional filter of pre-trained VGG was replaced with a new filter. This new filter takes in one channel tensor and then output 64-channels tensor so that the rest part of VGG can continue process it.  
-Further and most importantly, a new model was added upon it. This new model consists of the harvest of the HyperColumns from VGG, also it "squeezes" the HyperColumns into a two-channels tensor which correspond to the prediction of the A channel and B channel. This process was done by 1-by-1 convolution that "stiches" the feature maps in the HyperColumns together.
+
+Further and most importantly, a new model was added upon it. This new model consists of the harvest of the HyperColumns from VGG, also it "squeezes" the HyperColumns into a two-channels tensor which correspond to the prediction of the A channel and B channel. 
+
+
+This process was done by 1-by-1 convolution that "stiches" the feature maps in the HyperColumns together.
 
 Imagine the feature maps 
 ![](pics/6.jpg)
