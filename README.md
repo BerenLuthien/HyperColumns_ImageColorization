@@ -22,6 +22,8 @@ What is HyperColumns ?
 ## HyperColumns
 The layers of a convolutional network is like as a non-linear counterpart of the image pyramids. The feature maps have different sizes. The topper they are on the VGG model, the smaller their sizes are. We need them to be of the same size, i.e., the same as the size of the input gray image. Thus, the feature maps are upscaled by bilinear interpolation. Eventually, these upscaled feature maps are contatenated together to give us a HyperColumn. 
 ![](pics/5.jpg)
+
+
         relu1_2  = image_net["relu1_2"]
         layer_relu1_2 = tf.image.resize_bilinear(relu1_2, (IMAGE_SIZE, IMAGE_SIZE)) 
 
@@ -76,12 +78,30 @@ Here is a quick illustration from wiki: "A cortical column, also called hypercol
 ## Model
 Since gray color image contains only one channel, in order for VGG to be able to process one channel image, the first convolutional filter of pre-trained VGG was replaced with a new filter. This new filter takes in one channel tensor and then output 64-channels tensor so that the rest part of VGG can continue process it.  
 
-Further and most importantly, a new model was added upon it. This new model consists of the harvest of the HyperColumns from VGG, also it "squeezes" the HyperColumns into a two-channels tensor which correspond to the prediction of the A channel and B channel. 
+        W0 = utils.weight_variable([3, 3, 1, 64], name="W0")
+        b0 = utils.bias_variable([64], name="b0")
+        conv0 = utils.conv2d_basic(images, W0, b0)
+        hrelu0 = tf.nn.relu(conv0, name="relu")
+        image_net = vgg_net(weights, hrelu0)
 
 
-This process was done by 1-by-1 convolution that "stiches" the feature maps in the HyperColumns together.
+Further and most importantly, a new model was added upon it. This new model consists of the harvest of the HyperColumns from VGG, also it "squeezes" the HyperColumns into a two-channels tensor which correspond to the prediction of the A channel and B channel. This process was done by 1-by-1 convolution that "stiches" the feature maps in the HyperColumns together.
 
-Imagine the feature maps 
+
+        HyperColumns = tf.concat([layer_relu1_2, \
+                                     layer_relu2_1, layer_relu2_2, \
+                                     layer_relu3_1, layer_relu3_2, layer_relu3_3, layer_relu3_4, \
+                                     layer_relu4_1, layer_relu4_2, layer_relu4_3, layer_relu4_4, \
+                                     layer_relu5_1, layer_relu5_2, layer_relu5_3, layer_relu5_4  \
+                                    ] ,3)
+        wc1 = utils.weight_variable([1, 1, 5440, 2], name="wc1")
+        wc1_biase = utils.bias_variable([2], name="wc1_biase")
+        pred_AB_conv = tf.nn.conv2d(HyperColumns, wc1, [1, 1, 1, 1], padding='SAME')
+        pred_AB = tf.nn.bias_add(pred_AB_conv, wc1_biase)        
+    return tf.concat(values=[images, pred_AB], axis=3,  name="pred_image")
+
+
+
 ![](pics/6.jpg)
 
 ### Sampled results
