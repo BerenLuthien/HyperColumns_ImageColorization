@@ -1,26 +1,25 @@
 # HyperColumns of CNN and Image Colorization
 
 ## Introduction
-HyperColumnsImageColorization was the project that I created during my time as a Artifitial Intelligence Fellow with Insight Data Science in early 2017. In this project, from the pre-trained VGG model "HyperColumns" was harvested and was used to colourize the black-and-white images.
-The major target of this project is to explore HyperColumns and how it can be used in such computer vision tasks as image auto-colorizations. The training data was flower data set which was separated into train, validation and test sets. The trained model was also tested on images that are not from the flower data set, e.g., illustration pictures from books. The project was done in Tensorflow 1.0.1.
+HyperColumnsImageColorization was the project that I created during my time as a Artifitial Intelligence Fellow with Insight Data Science in early 2017. In this project, from the pre-trained VGG model "HyperColumns" was harvested and was used to colorize gray images.
+The major target of this project is to explore HyperColumns and how it can be used in such computer vision tasks as image auto-colorizations. The training data was flower data set which was separated into train, validation and test sets. The trained model was also tested on images that are not from the flower data set. The project was done using Tensorflow 1.0.1.
 
 ## Task description
-A colorful image can be decomposed into three channels, such as RGB, LAB, HSL and HSV and so on.  LAB was used in this project (https://en.wikipedia.org/wiki/Lab_color_space) where L means "lightness". L-channel is the input as a gray color image, and the output will be the predicted colorful image.
+A colorful image can be decomposed into three channels, such as RGB, LAB, HSL and HSV.  LAB was used in this project (https://en.wikipedia.org/wiki/Lab_color_space) where L means "lightness". L-channel representing a gray color image is the the input of my model,  and the output is the predicted colorful image.
 ![](pics/2.jpg)
-Given only one channel which is corresponds to lightness or a gray color image, we are able to output a prediction of colorful image if we can recover the other two channels.
 
 
 ### Does one channel contains all information of the other two channels ?
-This is the first question many people would ask themselves at the very beginning. More specifically, does L channel contains all information of the A & B channels ? If not, how can we recover the other A channel  and B channel from L channel ?
-The answer to this question leads to the illustration of HyperColumns which can come from a pre-trained convolutional neural network (CNN) model. In this project, pre-trained VGG was adopted and tweaked. VGG was trained on huge amount of images and it contains a lot of information regarding quite many of (if not all) objects in the world. Taking advantage of VGG, we should be able to colorize the gray images. VGG as an external information contained is the essential reason why the task can be done.
+This is the first question many people would ask themselves at the very beginning. Me too. More specifically, does L channel contains all information of the A & B channels ? No. Then how can we recover A & B channels from L channel ?
+
+The answer to this question leads to the usage of HyperColumns and a pre-trained convolutional neural network (CNN). In this project, pre-trained VGG was adopted and tweaked. VGG was trained on huge amount of images and it contains a lot of information regarding quite many of (if not all) objects in the world. Taking advantage of VGG, we should be able to colorize the gray images. VGG as "external information" is the essential reason why this colorization task can be done.
 ![](pics/1.jpg)
-Making an analogy. Given three data points, we need to output a curve to fit them. There are tons of various curves that can fit these three data points. However, what if somebody tells us (external information !) that the curve is most probably a quardratic curve ? We will produce the blue color curve.
+Making an analogy. Given three data points, we need to output a curve to fit them. There are tons of various curves that can fit these three data points. However, if somebody tells us (external information !) that the curve is most probably a quardratic curve, then we probably will produce the blue color curve.
 ![](pics/4.jpg)
+In order to harvest this external information that VGG has to provide, we need HyperColumns.
 
-
-What is HyperColumns ?
 ## HyperColumns
-The layers of a convolutional network is like as a non-linear counterpart of the image pyramids. The feature maps have different sizes. The topper they are on the VGG model, the smaller their sizes are. We need them to be of the same size, i.e., the same as the size of the input gray image. Thus, the feature maps are upscaled by bilinear interpolation. Eventually, these upscaled feature maps are contatenated together to give us a HyperColumn. 
+The layers of a convolutional network is like as a non-linear counterpart of the image pyramids. The feature maps have different sizes. The topper they are on the VGG model, the smaller their sizes are. However, we need them to be of the same size, e.g., the size of the input gray image. Thus, the feature maps are upscaled by bilinear interpolation. Eventually, these upscaled feature maps are contatenated together to give us a HyperColumn. 
 ![](pics/HyperColumns.jpg)
 
 
@@ -68,15 +67,16 @@ The layers of a convolutional network is like as a non-linear counterpart of the
                                     ] ,3)
 
 ### Why call it HyperColumns ?
-Looks like the author of the paper adopted this terminology from the idea of neuroscience, cortical column. 
+Looks like the author of the original paper adopted this terminology from some idea of neuroscience, where some part of our brain is called cortical column or hypercolumn. 
 
-Hariharan, Bharath, et al. "Hypercolumns for object segmentation and fine-grained localization." Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2015.
+"Hariharan, Bharath, et al. "Hypercolumns for object segmentation and fine-grained localization." Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition. 2015."
 
 Here is a quick illustration from wiki: "A cortical column, also called hypercolumn, macrocolumn, functional column or sometimes cortical module, is a group of neurons in the cortex of the brain that can be successively penetrated by a probe inserted perpendicularly to the cortical surface, and which have nearly identical receptive fields."
 ![](pics/cortical.jpg)
+This analogy is quite similar to the feature maps of CNN model.
 
 ## Model
-Since gray color image contains only one channel, in order for VGG to be able to process one channel image, the first convolutional filter of pre-trained VGG was replaced with a new filter. This new filter takes in one channel tensor and then output 64-channels tensor so that the rest part of VGG can continue process it.  
+Since gray color image contains only one channel, in order for VGG to be able to process it, the first convolutional filter of VGG was replaced with a new filter. This new filter takes in one channel tensor and then output 64-channels tensor which is fed into the rest part of VGG.  
 
         W0 = utils.weight_variable([3, 3, 1, 64], name="W0")
         b0 = utils.bias_variable([64], name="b0")
@@ -85,7 +85,7 @@ Since gray color image contains only one channel, in order for VGG to be able to
         image_net = vgg_net(weights, hrelu0)
 
 
-Further and most importantly, a new model was added upon it. This new model consists of the harvest of the HyperColumns from VGG, also it "squeezes" the HyperColumns into a two-channels tensor which correspond to the prediction of the A channel and B channel. This process was done by 1-by-1 convolution that "stiches" the feature maps in the HyperColumns together.
+Further and most importantly, the HyperColumns layer was added upon it, and then the HyperColumns are "squeezed" into a two-channels tensor which correspond to the prediction of the A & B channels. This process was done by 1-by-1 convolution that "stiches" the feature maps in the HyperColumns together.
 
 
         HyperColumns = tf.concat([layer_relu1_2, \
@@ -106,26 +106,27 @@ Further and most importantly, a new model was added upon it. This new model cons
 ![](pics/6.jpg)
 
 ### Sampled results
-Here are some sampled results. Some predicted image (top right) looks even better than the orginal one. There are also sort of failures, such as the bottom right, the statue was given some pink color.
+Here are some sampled results. Some predicted image (top right) looks even better than the orginal one. There are also sort of failures, such as the bottom left, where the statue was given some pink color.
 ![](pics/9.jpg)
 
-### Tensorboard: how/which weights update during training 
-Tensorboard allows us to peek into how the network weights, in this term the filters, to change during training. Here shows some of the filters and biases:
+### Tensorboard: how/which weights were updated during training 
+Tensorboard allows us to peek into how the network weights (conv filters) change during training. Here shows some of the filters and biases:
 ![](pics/b.jpg)
-Actually all filters and biases were updated to considerable extent. That is, all of the layers of VGG had been considerably updated or fine-tuned during the training. This indicates that most probably all of the feature maps are useful and they probably contains different information. None of them should be skipped. We should better incorporate all of the feature maps into our HyperColumns if we can afford to avoid information loss.
+Actually all filters and biases were updated to considerable extent during training. That is, all of the layers of VGG had been considerably updated. This indicates that all of the feature maps are useful and they probably contains different information. None of them should be skipped. We should better incorporate all of the feature maps into our HyperColumns to avoid information loss.
 That said, what if we only sample a portion of the feature maps ?
 
 ## Simplified model
-I only picked up the output of each pool layer of VGG, upscale them, and then concatenate into a thinner HyperColumn. Apparently some information that VGG has to provied was lost, but this thinner model is requests less computation and memory to train. This simpler model is not powerful enough, and it yielded somewhat worse result like this:
+I only picked up the output of each pool layer of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Apparently some information that VGG has to provied was lost, but this thinner model requests less computation and memory to train. It is not powerful enough, and it yielded somewhat worse result like this:
 ![](pics/a.jpg)
 
 
 ## More...
-Here is a illustration picture collected from an old book. The picture apparently is a gray image drawn by someone many years ago. Applying the model onto this picture, we get some result not too shaby:
+Here is an illustration picture collected from an old book. The picture apparently is a gray image drawn many many years ago. Applying the model onto this picture, I got some result not too shaby:
 ![](pics/8.jpg)
-Apply the model on cartoon, and it did not give a satisfying result. This is what I had expected because the model was never trained on cartoons.
+
+Then apply the model on cartoon, and it did not give a satisfying result. This is what I had expected because the model was never trained on cartoons.
 ![](pics/d.jpg)
-However, once the model is trained on a specific dataset, it might be able to do a fine job on the same type of data. What if I have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author, given that the author may have a consistent style of art.
+If the model is trained on a specific dataset, it might be able to do a fine job on the same type of data. What if I have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author, given that a author may have a consistent style of art.
 I will be extremely excited if I can get something like this:
 
 
