@@ -116,7 +116,16 @@ Actually all filters and biases were updated to considerable extent. That is, al
 That said, what if we only sample a portion of the feature maps ?
 
 ## Simplified model
-I only picked up the output of each pool layer of VGG, upscale them, and then concatenate into a thinner HyperColumn. Apparently I lost some information that VGG has to provied, but anyway this thinner model was fine-tuned as earlier and yielded somewhat worse result like this:
-![](pic/a.jpg)
+I only picked up the output of each pool layer of VGG, upscale them, and then concatenate into a thinner HyperColumn. Apparently some information that VGG has to provied was lost, but this thinner model is requests less computation and memory to train. This simpler model is not powerful enough, and it yielded somewhat worse result like this:
+![](pics/a.jpg)
 
 
+## More...
+Here is a illustration picture collected from an old book. The picture apparently is a gray image drawn by someone many years ago. Applying the model onto this picture, we get some result not too shaby:
+![](pics/8.jpg)
+Apply the model on cartoon, and it did not give a satisfying result. This is what I had expected because the model was never trained on cartoons.
+![](pics/d.jpg)
+However, once the model is trained on a specific dataset, it might be able to do a fine job on the same type of data. What if I have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author, given that the author may have a consistent style of art.
+I will be extremely excited if I can get something like this:
+![](pics/e.jpg)
+😄
