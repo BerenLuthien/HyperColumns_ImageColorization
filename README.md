@@ -111,7 +111,7 @@ Here are some sampled results. Some predicted image (top right) looks even bette
 
 ### Tensorboard: how/which weights update during training 
 Tensorboard allows us to peek into how the network weights, in this term the filters, to change during training. Here shows some of the filters and biases:
-![](pics/b)
+![](pics/b.jpg)
 Actually all filters and biases were updated to considerable extent. That is, all of the layers of VGG had been considerably updated or fine-tuned during the training. This indicates that most probably all of the feature maps are useful and they probably contains different information. None of them should be skipped. We should better incorporate all of the feature maps into our HyperColumns if we can afford to avoid information loss.
 That said, what if we only sample a portion of the feature maps ?
 
