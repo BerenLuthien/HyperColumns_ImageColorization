@@ -143,10 +143,10 @@ I will be extremely excited if I can get something like this:
 
 # useful linkes
 ## github or posts
-* [RichardZhang](http://richzhang.github.io/colorization/) - Colorful Image Colorization, Richard Zang et. al. 
-* [Ryan](http://tinyclouds.org/colorize/) - Ryan's blog post - Automatic Colorization 
+* [Colorful Image Colorization](http://richzhang.github.io/colorization/) - RichardZhang
+* [Automatic Colorization](http://tinyclouds.org/colorize/) - Ryan
 
 ## papers
-* [Bharath Hariharan, et. al.](https://arxiv.org/abs/1411.5752) - Hypercolumns for Object Segmentation and Fine-grained Localization
-* [Gustav Larsson, et. al.](https://arxiv.org/pdf/1603.06668.pdf) - Learning Representations for Automatic Colorization
-* [Richard Zang et. al.](https://arxiv.org/pdf/1603.08511.pdf) - Colorful Image Colorization 
+* [Hypercolumns for Object Segmentation and Fine-grained Localization](https://arxiv.org/abs/1411.5752) - Bharath Hariharan, et. al.
+* [Learning Representations for Automatic Colorization](https://arxiv.org/pdf/1603.06668.pdf) - Gustav Larsson, et. al.
+* [Colorful Image Colorization](https://arxiv.org/pdf/1603.08511.pdf) - Richard Zang et. al.
