@@ -143,8 +143,10 @@ I will be extremely excited if I can get something like this:
 
 # useful linkes
 ## github or posts
-* [Colorful Image Colorization](http://richzhang.github.io/colorization/) - RichardZhang
-* [Automatic Colorization](http://tinyclouds.org/colorize/) - Ryan
+* [Colorful Image Colorization](http://richzhang.github.io/colorization/) 
+* [Automatic Colorization](http://tinyclouds.org/colorize/) 
+* [Image colorization using CNNs in tensorflow](https://github.com/shekkizh) 
+
 
 ## papers
 * [Hypercolumns for Object Segmentation and Fine-grained Localization](https://arxiv.org/abs/1411.5752) - Bharath Hariharan, et. al.
