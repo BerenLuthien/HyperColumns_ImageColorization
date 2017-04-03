@@ -147,16 +147,6 @@ I will be extremely excited if I can get something like this:
 * [Ryan](http://tinyclouds.org/colorize/) - Ryan's blog post - Automatic Colorization 
 
 ## papers
-* [Bharath Hariharan, et. al.](https://arxiv.org/abs/1411.5752) - Hypercolumns for Object Segmentation and Fine-grained Localization, 
+* [Bharath Hariharan, et. al.](https://arxiv.org/abs/1411.5752) - Hypercolumns for Object Segmentation and Fine-grained Localization
+* [Gustav Larsson, et. al.](https://arxiv.org/pdf/1603.06668.pdf) - Learning Representations for Automatic Colorization
 * [Richard Zang et. al.](https://arxiv.org/pdf/1603.08511.pdf) - Colorful Image Colorization 
-
-
-
-  Colorful Image Colorization
-
-https://arxiv.org/abs/1411.5752
-
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
