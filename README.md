@@ -139,3 +139,8 @@ I will be extremely excited if I can get something like this:
 
 
 😄
+
+
+# useful linkes
+Colorful Image Colorization, Richard Zang et. al. http://richzhang.github.io/colorization/
+Ryan's blog post - Automatic Colorization http://tinyclouds.org/colorize/
