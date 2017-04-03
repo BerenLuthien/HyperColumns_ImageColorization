@@ -153,3 +153,8 @@ https://arxiv.org/pdf/1603.06668.pdf
 https://arxiv.org/pdf/1603.08511.pdf
 
 https://arxiv.org/abs/1411.5752
+
+
+* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
+* [Maven](https://maven.apache.org/) - Dependency Management
+* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
