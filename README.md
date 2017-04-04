@@ -114,6 +114,10 @@ This process was done by 1-by-1 convolution that "stiches" the feature maps in t
 Here are some sampled results. Some predicted image (top right) looks even better than the orginal one. There are also sort of failures, such as the bottom left, where the statue was given some pink color.
 ![](pics/9.jpg)
 
+Further, we can see the progress that the model made during training: 
+![](pics/train.jpg)
+
+
 ### Tensorboard: how/which weights were updated during training 
 Tensorboard allows us to peek into how the network weights (conv filters) change during training. Here shows some of the filters and biases:
 ![](pics/b.jpg)
@@ -123,6 +127,18 @@ That said, what if we only sample a portion of the feature maps ?
 ## Simplified model
 I only picked up the output of each pool layer of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Apparently some information that VGG has to provied was lost, but this thinner model requests less computation and memory to train. It is not powerful enough, and it yielded somewhat worse result like this:
 ![](pics/a.jpg)
+
+## Yet another model..
+I came up a model by myself based on the concept of HyperColumns, but it did not work well. 
+The idea is to introduce more non-linearity into the network. Basically I took the feature maps from the same layer of VGG, concatenated them together to make a layer-based-HyperColumns, each of which was "squeezed" by 1by1 conv into a single feature map. At last, these five feature maps went through non linear function ReLu, concatenated into a HyperColumns, and at last this 5-layer-HyperColumns was used to make prediction as earlier model.
+
+Without ReLu functions, this model will be equivalent to the full HyperColumns model illustrated earlier.
+
+![](pics/layered_hypercolumns.png)
+
+Here is the results... Not good.
+
+![](pics/layered_hypercolumns_results.png)
 
 
 ## More...
