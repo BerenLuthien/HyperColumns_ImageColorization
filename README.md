@@ -132,17 +132,17 @@ I only picked up the output of each pool layer of VGG, upscale them, and then co
 ![](pics/partial.png)
 
 
-## Another model (non-linearity)..
-I came up with a model based on the concept of HyperColumns, but it did not give better performance.
+# Other models I tried
+I came up with two other models based on the concept of HyperColumns, but they did not give better performance. The two models tried to introduce more capacity. Since they did not give better performance, it looks that the original HyperColumns already have enough capacity.
+Anyway, here are what I tried:
+## other-model-1
 The idea is to introduce more non-linearity into the network. Basically the feature maps from the same layer of VGG were concatenated together to give a layer-based-HyperColumns. Each layer-based-HyperColumns was "squeezed" by 1by1 conv into a single feature map. At last, these five feature maps went through non linear function ReLu respectively, concatenated into one HyperColumns, and at last was used to make prediction as earlier model did.
-
 Without ReLu functions, this model will be equivalent to the full HyperColumns model illustrated earlier.
-
 ![](pics/layered_hypercolumns.png)
 
-## Yet another model ..
-####  TBC
-
+## other-model-2
+The idea is to introduce more conv filters into the network. Based on other-model-1, before the final 1-by-1 conv, two new conv filters are inserted to give the model more capacity.
+![](pics/model2.png)
 
 ## More...
 Here is an illustration picture collected from an old book. The picture apparently is a gray image drawn many many years ago. Applying the model onto this picture, I got some result not too shaby:
