@@ -142,7 +142,7 @@ Without ReLu functions, this model will be equivalent to the full HyperColumns m
 
 ## other-model-2
 The idea is to introduce more conv filters into the network. Based on other-model-1, before the final 1-by-1 conv, two new conv filters are inserted to give the model more capacity.
-![](pics/model2.png)
+![](pics/model_2.png)
 
 ## More...
 Here is an illustration picture collected from an old book. The picture apparently is a gray image drawn many many years ago. Applying the model onto this picture, I got some result not too shaby:
