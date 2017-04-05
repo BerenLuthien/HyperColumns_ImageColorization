@@ -145,7 +145,7 @@ Here is an illustration picture collected from an old book. The picture apparent
 
 Then apply the model on cartoon, and it did not give a satisfying result. This is what I had expected because the model was never trained on cartoons.
 ![](pics/d.jpg)
-If the model is trained on a specific dataset, it might be able to do a fine job on the same type of data. What if I have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author, given that a author may have a consistent style of art.
+If the model is trained on a specific dataset, it might be able to do a fine job on the same type of data. What if I have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author. After all, an author usually presents a consistent style of art of herself/himself.
 I will be extremely excited if I can get something like this:
 
 
