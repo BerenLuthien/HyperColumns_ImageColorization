@@ -113,10 +113,11 @@ This process was done by 1-by-1 convolution that "stiches" the feature maps in t
 ### Sampled results
 Here are some sampled results. Some predicted image (top right) looks even better than the orginal one. There are also sort of failures, such as the bottom left, where the statue was given some pink color.
 ![](pics/9.jpg)
+Applied the model on illustration pictures of elder books:
 ![](pics/illustration.png)
 
 Further, we can see the progress that the model made during training: 
-![](pics/train.jpg)
+![](pics/train.png)
 
 
 ### Tensorboard: how/which weights were updated during training 
