@@ -113,6 +113,7 @@ This process was done by 1-by-1 convolution that "stiches" the feature maps in t
 ### Sampled results
 Here are some sampled results. Some predicted image (top right) looks even better than the orginal one. There are also sort of failures, such as the bottom left, where the statue was given some pink color.
 ![](pics/9.jpg)
+![](pics/illustration.jpg)
 
 Further, we can see the progress that the model made during training: 
 ![](pics/train.jpg)
@@ -130,13 +131,16 @@ I only picked up the output of each pool layer of VGG, upscale them, and then co
 ![](pics/partial.png)
 
 
-## Yet another model..
+## Another model (non-linearity)..
 I came up with a model based on the concept of HyperColumns, but it did not give better performance.
 The idea is to introduce more non-linearity into the network. Basically the feature maps from the same layer of VGG were concatenated together to give a layer-based-HyperColumns. Each layer-based-HyperColumns was "squeezed" by 1by1 conv into a single feature map. At last, these five feature maps went through non linear function ReLu respectively, concatenated into one HyperColumns, and at last was used to make prediction as earlier model did.
 
 Without ReLu functions, this model will be equivalent to the full HyperColumns model illustrated earlier.
 
 ![](pics/layered_hypercolumns.png)
+
+## Yet another model ..
+####  TBC
 
 
 ## More...
