@@ -1,7 +1,7 @@
 # HyperColumns of CNN and Image Colorization
 
 ## Introduction
-HyperColumnsImageColorization is the project that I've created during my time as a Artifitial Intelligence Fellow with Insight Data Science in early 2017. In this project, from the pre-trained VGG model "HyperColumns" is harvested and is used to colorize gray images.
+HyperColumnsImageColorization is the project that I've created during my time as a Artificial Intelligence Fellow with Insight Data Science in early 2017. In this project, from the pre-trained VGG model "HyperColumns" is harvested and is used to colorize gray images.
 The major target of this project is to explore HyperColumns and how it can be used in such computer vision tasks as image auto-colorizations. The training data is flower data set which is separated into train, validation and test sets. The trained model is also tested on images that are not from the flower data set. The project is done using Tensorflow 1.0.1.
 ![](pics/head.jpg)
 
