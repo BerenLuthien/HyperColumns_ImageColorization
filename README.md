@@ -131,7 +131,7 @@ This simplified model picks up the output of each pool layer of VGG, upscale the
 
 
 # Other models I tried
-I come up with two other models based on the concept of HyperColumns, but they do not give better performance. The two models try to introduce more capacity. Thus, it looks that the original HyperColumns already have enough capacity.
+I come up with two other models based on the concept of HyperColumns. The two models try to introduce more capacity, but they do not give better performance.  Thus, it looks that the original HyperColumns already have enough capacity.
 Anyway, here are what I've tried:
 ## other-model-1
 The idea is to introduce more non-linearity into the network. Basically the feature maps from the same layer of VGG are concatenated together to give a layer-based-HyperColumns. Each layer-based-HyperColumns is "squeezed" by 1by1 conv into a single feature map. At last, these five feature maps go through non linear function ReLu respectively, are concatenated into one HyperColumns, and at last is used to make prediction.
