@@ -127,7 +127,7 @@ That said, what if we only sample a portion of the feature maps ?
 ## Simplified model
 This simplified model picks up the output of each pool layer of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Apparently some information that VGG has to provied is lost, but this thinner model requests less computation and less memory. It is not powerful enough. Here are some samples of its outputs :
 ![](pics/partial_model_results.png)
-![](pics/partial.png)
+![](pics/partial2.png)
 
 
 # Other models I tried
