@@ -125,7 +125,10 @@ Actually all layers of filters have been updated to a considerable extent during
 That said, what if we only sample a portion of the feature maps ?
 
 ## Simplified model
-This simplified model picks up the output of each pool layer of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Apparently some information that VGG has to provied is lost, but this thinner model requests less computation and less memory. It is not powerful enough. Here are some samples of its predictions :
+This simplified model picks up the output of each pool layer of VGG, upscale them, and then concatenated them into a thinner HyperColumn. 
+![](pics/SimpleModel_FourLayers.png)
+
+Apparently some information that VGG has to provied is lost, but this thinner model requests less computation and less memory. It is not powerful enough. Here are some samples of its predictions :
 ![](pics/partial_model_results.png)
 
 The predictions are not as good as the full model above, but still fine. Its training loss is larger than the full model.
