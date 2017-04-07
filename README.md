@@ -110,17 +110,22 @@ This process was done by 1-by-1 convolution that "stiches" the feature maps in t
 
 ### Sampled results
 Here are some sampled results. Some predicted image (top right) looks even better than the orginal one. There are also sort of failures, such as the bottom left, where the statue was given some pink color.
+
 ![](pics/9.jpg)
 Applied the model on illustration pictures of elder books:
+
 ![](pics/illustration.png)
 
 Further, we can see the progress that the model made during training: 
+
 ![](pics/train.png)
 
 
 ### Tensorboard: how/which weights were updated during training 
 Tensorboard allows us to peek into how the network weights (conv filters) change during training. Here shows some of the filters and biases:
+
 ![](pics/b.jpg)
+
 Actually all layers of filters have been updated to a considerable extent during the training. This indicates that all of the feature maps are useful and they probably contains different information. We should better incorporate all of the feature maps into our HyperColumns to avoid information loss.
 That said, what if we only sample a portion of the feature maps ?
 
@@ -130,9 +135,11 @@ This simplified model picks up the output of the pooling of the first four layer
 ![](pics/SimpleModel_FourLayers.png)
 
 Apparently some information that VGG has to provied is lost, but this thinner model requests less computation and less memory. It is not powerful enough. Here are some samples of its predictions :
+
 ![](pics/partial_model_results.png)
 
 The predictions are not as good as the full model above, but still fine. Its training loss is larger than the full model.
+
 ![](pics/partial2.png)
 
 
@@ -142,14 +149,17 @@ Anyway, here are what I've tried:
 ## other-model-1
 The idea is to introduce more non-linearity into the network. Basically the feature maps from the same layer of VGG are concatenated together to give a layer-based-HyperColumns. Each layer-based-HyperColumns is "squeezed" by 1by1 conv into a single feature map. At last, these five feature maps go through non linear function ReLu respectively, are concatenated into one HyperColumns, and at last is used to make prediction.
 Without ReLu functions, this model will be equivalent to the full HyperColumns model illustrated earlier.
+
 ![](pics/layered_hypercolumns.png)
 
 ## other-model-2
 The idea is to introduce more conv filters into the network. Based on other-model-1, before the final 1-by-1 conv, two new conv filters are inserted to give the model more capacity.
+
 ![](pics/model_2.png)
 
 ## More...
 Apply the model on cartoon, and it did not give a satisfying result. This is what I had expected because the model was never trained on cartoons.
+
 ![](pics/d.jpg)
 If the model is trained on a specific dataset, it may be able to do a fine job on the same type of data. 
 What if I have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author. After all, an author usually presents a consistent style of art of herself/himself.
