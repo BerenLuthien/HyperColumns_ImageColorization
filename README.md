@@ -140,7 +140,7 @@ Apparently some information that VGG has to provied is lost, but this thinner mo
 
 The predictions are not as good as the full model above, but still fine. Its training loss is larger than the full model.
 
-![](pics/top4layers.png)
+![](pics/FOURlayers_loss.png)
 
 ## Simplified model, with top layer
 This simplified model picks up the output of the pooling of the first five layers (which means the top conv layer is included) of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Its performance is almost as good as the full model.
