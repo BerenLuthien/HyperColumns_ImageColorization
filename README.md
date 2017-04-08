@@ -142,14 +142,18 @@ The predictions are not as good as the full model above, but still fine. Its tra
 
 ![](pics/FOURlayers_loss.png)
 
-## Simplified model, with top layer
-This simplified model picks up the output of the pooling of the first five layers (which means the top conv layer is included) of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Its performance is almost as good as the full model.
+## Simplified model, with top layer, before pooling
+This simplified model picks up the output of ReLu (which means before pooling) of the first five layers (which means the top conv layer is included) of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Its performance is almost as good as the full model.
 
 ![](pics/FIVElayers_simplifiedModel.png)
 
 Some predictions are compared against the full model:
 
 ![](pics/Simplified_with_top_layer_pred.png)
+
+This result implies that layer-5 contains important information regarding color. Further, we should probably pick up feature map before pooling rather than after pooling. Pooling operation loses some information after all.
+
+It may be interesting to try different combinations of layers, such as only output of layers 1,2,3, or only output of layeys 3,4,5, and so on.
 
 # Other models I tried
 I come up with two other models based on the concept of HyperColumns. The two models try to introduce more capacity, but they do not give better performance.  Thus, it looks that the original HyperColumns already have enough capacity.
