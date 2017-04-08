@@ -162,7 +162,7 @@ The predictions are not as good as the full model above, but still fine. Its tra
 ![](pics/FOURlayers_loss.png)
 
 ### 5.2 Simplified model, with top layer, before pooling
-This simplified model picks up the output of ReLu (which means before pooling) of the first five layers (which means the top conv layer is included) of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Its performance is almost as good as the full model.
+This simplified model picks up the output of ReLu (which means before pooling) of the first five layers (which means the top conv layer is included) of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Surprisingly, its performance is almost as good as the above full model.
 
         wc1 = utils.weight_variable([1, 1, 1472, 2], name="wc1")
         vgg_1 = image_net["relu1_2"]
