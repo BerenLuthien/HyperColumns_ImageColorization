@@ -131,7 +131,25 @@ That said, what if we only sample a portion of the feature maps ?
 
 ## 5. Simplified model
 ### 5.1 Simplified model, without top layer
+        wc1 = utils.weight_variable([1, 1, 960, 2], name="wc1")
+        vgg_pool_1 = image_net["pool1"]
+        vgg_pool_2 = image_net["pool2"]
+        vgg_pool_3 = image_net["pool3"]
+        vgg_pool_4 = image_net["pool4"]
+         
+        layer1 = tf.image.resize_bilinear(vgg_pool_1, (IMAGE_SIZE, IMAGE_SIZE))
+        layer2 = tf.image.resize_bilinear(vgg_pool_2, (IMAGE_SIZE, IMAGE_SIZE))
+        layer3 = tf.image.resize_bilinear(vgg_pool_3, (IMAGE_SIZE, IMAGE_SIZE))
+        layer4 = tf.image.resize_bilinear(vgg_pool_4, (IMAGE_SIZE, IMAGE_SIZE))
+
+        HyperColumns = tf.concat([layer1, layer2,layer3, layer4] ,3)        
+        pred_AB_conv = tf.nn.conv2d(HyperColumns, wc1, [1, 1, 1, 1], padding='SAME')
+        wc1_biase = utils.bias_variable([2], name="wc1_biase")
+        pred_AB = tf.nn.bias_add(pred_AB_conv, wc1_biase)        
+    return tf.concat(values=[images, pred_AB], axis=3,  name="pred_image")
+
 This simplified model picks up the output of the pooling of the first four layers of VGG, upscale them, and then concatenated them into a thinner HyperColumn. 
+
 
 ![](pics/SimpleModel_FourLayers.png)
 
@@ -145,6 +163,27 @@ The predictions are not as good as the full model above, but still fine. Its tra
 
 ### 5.2 Simplified model, with top layer, before pooling
 This simplified model picks up the output of ReLu (which means before pooling) of the first five layers (which means the top conv layer is included) of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Its performance is almost as good as the full model.
+
+        wc1 = utils.weight_variable([1, 1, 1472, 2], name="wc1")
+        vgg_1 = image_net["relu1_2"]
+        vgg_2 = image_net["relu2_2"]
+        vgg_3 = image_net["relu3_4"]
+        vgg_4 = image_net["relu4_4"]
+        vgg_5 = image_net["relu5_4"]
+         
+        layer1 = tf.image.resize_bilinear(vgg_1, (IMAGE_SIZE, IMAGE_SIZE))
+        layer2 = tf.image.resize_bilinear(vgg_2, (IMAGE_SIZE, IMAGE_SIZE))
+        layer3 = tf.image.resize_bilinear(vgg_3, (IMAGE_SIZE, IMAGE_SIZE))
+        layer4 = tf.image.resize_bilinear(vgg_4, (IMAGE_SIZE, IMAGE_SIZE))
+        layer5 = tf.image.resize_bilinear(vgg_5, (IMAGE_SIZE, IMAGE_SIZE))
+
+        HyperColumns = tf.concat([layer1, layer2,layer3, layer4, layer5] ,3)        
+        pred_AB_conv = tf.nn.conv2d(HyperColumns, wc1, [1, 1, 1, 1], padding='SAME')
+        wc1_biase = utils.bias_variable([2], name="wc1_biase")
+        pred_AB = tf.nn.bias_add(pred_AB_conv, wc1_biase)        
+    return tf.concat(values=[images, pred_AB], axis=3,  name="pred_image")
+
+
 
 ![](pics/FIVElayers_simplifiedModel.png)
 
