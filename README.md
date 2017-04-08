@@ -20,7 +20,35 @@ Making an analogy. Given three data points, we need to output a curve to fit the
 ![](pics/4.jpg)
 In order to harvest this external information that VGG has to provide, we need HyperColumns.
 
-## 3. HyperColumns
+
+## 3. HyperColumns and VGG
+
+Regarding CNN and VGG, refer to http://cs231n.github.io/convolutional-networks/
+
+### 3.1 Load a pre-trained VGG
+
+MODEL_URL = 'http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat'
+
+        def vgg_net(weights, image):
+    layers = (
+        'conv1_1', 'relu1_1',
+        'conv1_2', 'relu1_2', 'pool1',
+
+        'conv2_1', 'relu2_1', 'conv2_2', 'relu2_2', 'pool2',
+
+        'conv3_1', 'relu3_1', 'conv3_2', 'relu3_2', 'conv3_3',
+        'relu3_3', 'conv3_4', 'relu3_4', 'pool3',
+
+        'conv4_1', 'relu4_1', 'conv4_2', 'relu4_2', 'conv4_3',
+        'relu4_3', 'conv4_4', 'relu4_4', 'pool4',
+
+        'conv5_1', 'relu5_1', 'conv5_2', 'relu5_2', 'conv5_3',
+        'relu5_3', 'conv5_4', 'relu5_4'
+    )
+
+
+### 3.2 HyperColumns from VGG
+
 The layers of a convolutional network is like as a non-linear counterpart of the image pyramids. The feature maps have different sizes. The topper they are on the VGG model, the smaller their sizes are. However, we need them to be of the same size, e.g., the size of the input grey image. Thus, the feature maps are upscaled by bilinear interpolation and are contatenated together to give us a "HyperColumn".  (It looks like HyperMaps rather than HyperColumns ?!)
 ![](pics/HyperColumns.jpg)
 
@@ -68,7 +96,7 @@ The layers of a convolutional network is like as a non-linear counterpart of the
                                      layer_relu5_1, layer_relu5_2, layer_relu5_3, layer_relu5_4  \
                                     ] ,3)
 
-### 3.1 Why call it HyperColumns ?
+### 3.3 Why call it HyperColumns ?
 This terminology comes from neuroscience, where some part of our brain is called hypercolumn (refer to the paper link at the bottom). 
 
 Here is a quick illustration from wiki: "A cortical column, also called hypercolumn, macrocolumn, functional column or sometimes cortical module, is a group of neurons in the cortex of the brain that can be successively penetrated by a probe inserted perpendicularly to the cortical surface, and which have nearly identical receptive fields."
