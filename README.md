@@ -147,6 +147,10 @@ This simplified model picks up the output of the pooling of the first five layer
 
 ![](pics/FIVElayers_simplifiedModel.png)
 
+Some predictions are compared against the full model:
+
+![](pics/Simplified_with_top_layer_pred.png)
+
 # Other models I tried
 I come up with two other models based on the concept of HyperColumns. The two models try to introduce more capacity, but they do not give better performance.  Thus, it looks that the original HyperColumns already have enough capacity.
 Anyway, here are what I've tried:
