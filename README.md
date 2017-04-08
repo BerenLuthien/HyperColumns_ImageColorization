@@ -129,7 +129,7 @@ Tensorboard allows us to peek into how the network weights (conv filters) change
 Actually all layers of filters have been updated to a considerable extent during the training. This indicates that all of the feature maps are useful and they probably contains different information. We should better incorporate all of the feature maps into our HyperColumns to avoid information loss.
 That said, what if we only sample a portion of the feature maps ?
 
-## Simplified model
+## Simplified model, without top layer
 This simplified model picks up the output of the pooling of the first four layers of VGG, upscale them, and then concatenated them into a thinner HyperColumn. 
 
 ![](pics/SimpleModel_FourLayers.png)
@@ -140,8 +140,12 @@ Apparently some information that VGG has to provied is lost, but this thinner mo
 
 The predictions are not as good as the full model above, but still fine. Its training loss is larger than the full model.
 
-![](pics/partial2.png)
+![](pics/top4layers.png)
 
+## Simplified model, with top layer
+This simplified model picks up the output of the pooling of the first five layers (which means the top conv layer is included) of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Its performance is almost as good as the full model.
+
+![](pics/FIVElayers_simplifiedModel.png)
 
 # Other models I tried
 I come up with two other models based on the concept of HyperColumns. The two models try to introduce more capacity, but they do not give better performance.  Thus, it looks that the original HyperColumns already have enough capacity.
