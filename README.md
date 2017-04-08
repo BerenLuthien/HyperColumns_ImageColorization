@@ -245,7 +245,7 @@ Apply the model on cartoon, and it did not give a satisfying result. This is wha
 ## github or posts
 * [Colorful Image Colorization](http://richzhang.github.io/colorization/) 
 * [Automatic Colorization](http://tinyclouds.org/colorize/) 
-* [Image colorization using CNNs in tensorflow](https://github.com/shekkizh) 
+* [Image colorization](https://github.com/shekkizh) 
 
 
 ## papers
