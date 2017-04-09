@@ -1,12 +1,12 @@
 # HyperColumns of CNN and Image Colorization
 
 ## 1 Introduction
-HyperColumnsImageColorization is the project that I've created during my time as an Artificial Intelligence Fellow with Insight Data Science in early 2017. In this project, from the pre-trained VGG model "HyperColumns" is harvested and is used to colorize gray images.
-The major target of this project is to explore HyperColumns and how it can be used in such computer vision tasks as image auto-colorizations. The training data is flower data set which is separated into train, validation and test sets. The trained model is also tested on images that are not from the flower data set. The project is done using Tensorflow 1.0.1.
+This is the project that I've created during my time as an Artificial Intelligence Fellow with Insight Data Science in early 2017. In this project, from the pre-trained VGG model "HyperColumns" is harvested and is used to colorize gray images.
+The major target of this project is to explore HyperColumns and how it can be used in such computer vision tasks as image auto-colorizations. The training data is flower data set which is separated into train, validation and test sets. The trained model is also tested on images that are not from the flower data set. The project is done in Tensorflow 1.0 and Python.
 ![](pics/head.jpg)
 
 ## 2 Task description
-A colorful image can be decomposed into three channels, such as RGB, LAB, HSL and HSV.  LAB is used in this project (https://en.wikipedia.org/wiki/Lab_color_space) where L means "lightness". L-channel representing a gray color image is the the input of my model,  and the output is the predicted colorful image.
+A colorful image can be decomposed into three channels, such as RGB, LAB, HSL and HSV.  LAB is used in this project (https://en.wikipedia.org/wiki/Lab_color_space) where L means "lightness". L-channel representing a gray color image is the input of my model,  and the output is the predicted colorful image.
 ![](pics/2.jpg)
 
 
@@ -29,8 +29,8 @@ Regarding CNN and VGG, refer to http://cs231n.github.io/convolutional-networks/
 
 MODEL_URL = 'http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydeep-19.mat'
 
-        def vgg_net(weights, image):
-    layers = (
+    def vgg_net(weights, image):
+        layers = (
         'conv1_1', 'relu1_1',
         'conv1_2', 'relu1_2', 'pool1',
 
@@ -49,7 +49,7 @@ MODEL_URL = 'http://www.vlfeat.org/matconvnet/models/beta16/imagenet-vgg-verydee
 
 ### 3.2 HyperColumns from VGG
 
-The layers of a convolutional network is like as a non-linear counterpart of the image pyramids. The feature maps have different sizes. The topper they are on the VGG model, the smaller their sizes are. However, we need them to be of the same size, e.g., the size of the input grey image. Thus, the feature maps are upscaled by bilinear interpolation and are contatenated together to give us a "HyperColumn".  (It looks like HyperMaps rather than HyperColumns ?!)
+The layers of a convolutional network is like as a non-linear counterpart of the image pyramids. The feature maps have different sizes. The topper they are on the VGG model, the smaller their sizes are. However, we need them to be of the same size, e.g., the size of the input grey image. Thus, the feature maps are upscaled by bilinear interpolation and are contatenated together to give us a "HyperColumn".  (It looks to me more like HyperMaps rather than HyperColumns though.)
 ![](pics/HyperColumns.jpg)
 
 
@@ -102,9 +102,10 @@ This terminology comes from neuroscience, where some part of our brain is called
 Here is a quick illustration from wiki: "A cortical column, also called hypercolumn, macrocolumn, functional column or sometimes cortical module, is a group of neurons in the cortex of the brain that can be successively penetrated by a probe inserted perpendicularly to the cortical surface, and which have nearly identical receptive fields."
 ![](pics/cortical.jpg)
 
-This analogy is quite similar to the feature maps of CNN model.
+This analogy is quite similar to the feature maps of CNN.
 
 ## 4. Model
+### 4.1 preprocess
 Since gray color image contains only one channel, in order for VGG to be able to process it, the first convolutional filter of VGG is replaced with a new filter. This new filter takes into one channel tensor and then output 64-channels tensor which is fed into the rest part of VGG.  
 
         W0 = utils.weight_variable([3, 3, 1, 64], name="W0")
@@ -113,7 +114,7 @@ Since gray color image contains only one channel, in order for VGG to be able to
         hrelu0 = tf.nn.relu(conv0, name="relu")
         image_net = vgg_net(weights, hrelu0)
 
-
+### 4.2 Harvesting HyperColumns
 Further and most importantly, the HyperColumns layer is added upon it, and then the HyperColumns are "squeezed" into a two-channels tensor which correspond to the prediction of the A & B channels. 
 Imagine a chopstick is pushed through many slices of bread and get many holes, then all the holes comprise one hypercolumn, and it corresponds to one pixel of the original image.
 This process was done by 1-by-1 convolution that "stiches" the feature maps in the HyperColumns together.
@@ -136,20 +137,23 @@ This process was done by 1-by-1 convolution that "stiches" the feature maps in t
 
 ![](pics/6.jpg)
 
-### 4.1 Sampled results
-Here are some sampled results. Some predicted image (top right) looks even better than the orginal one. There are also sort of failures, such as the bottom left, where the statue was given some pink color.
-
-![](pics/9.jpg)
-Applied the model on illustration pictures of elder books:
-
-![](pics/illustration.png)
-
-Further, we can see the progress that the model made during training: 
+### 4.3 Training
+We can see the progress that the model made during training (batch_size=10, learning rate=1e-4): 
 
 ![](pics/train.png)
 
 
-### 4.2 Tensorboard: how/which weights were updated during training 
+
+### 4.4 Sampled results
+Here are some sampled results. Some predicted images look as good as the orginal one. There are also failures, such as the bottom left, where the statue was given some pink color.
+
+![](pics/9.jpg)
+Applied the model on illustration pictures of old books:
+
+![](pics/illustration.png)
+
+
+### 4.5 Tensorboard: how/which weights were updated during training 
 Tensorboard allows us to peek into how the network weights (conv filters) change during training. Here shows some of the filters and biases:
 
 ![](pics/b.jpg)
@@ -158,7 +162,7 @@ Actually all layers of filters have been updated to a considerable extent during
 That said, what if we only sample a portion of the feature maps ?
 
 ## 5. Simplified model
-### 5.1 Simplified model, without top layer
+### 5.1 Simplified model, layers 1-4, after pooling
         wc1 = utils.weight_variable([1, 1, 960, 2], name="wc1")
         vgg_pool_1 = image_net["pool1"]
         vgg_pool_2 = image_net["pool2"]
@@ -189,7 +193,7 @@ The predictions are not as good as the full model above, but still fine. Its tra
 
 ![](pics/FOURlayers_loss.png)
 
-### 5.2 Simplified model, with top layer, before pooling
+### 5.2 Simplified model, layers 1-5, before pooling
 This simplified model picks up the output of ReLu (which means before pooling) of the first five layers (which means the top conv layer is included) of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Surprisingly, its performance is almost as good as the above full model.
 
         wc1 = utils.weight_variable([1, 1, 1472, 2], name="wc1")
@@ -215,13 +219,13 @@ This simplified model picks up the output of ReLu (which means before pooling) o
 
 ![](pics/FIVElayers_simplifiedModel.png)
 
-Some predictions are compared against the full model:
+Some of its predictions are compared against the full model:
 
 ![](pics/Simplified_with_top_layer_pred.png)
 
-This result implies that layer-5 contains important information regarding color. Further, we should probably pick up feature map before pooling rather than after pooling. Pooling operation loses some information after all.
+This result implies that the conv-layer-5 contains important information regarding color. Further, we should probably pick up feature map before pooling rather than after pooling, apparently. Pooling operation loses some information after all.
 
-It may be interesting to try different combinations of layers, such as only output of layers 1,2,3, or only output of layeys 3,4,5, and so on.
+It may be interesting to try different combinations of layers, such as only output of layers 1,2,3, or only output of layeys 3,4,5, and so on. It is possible that only some specific layers contribute most to the colorization task.
 
 ## 6. Other models I tried
 I come up with two other models based on the concept of HyperColumns. The two models try to introduce more capacity, but they do not give better performance.  Thus, it looks that the original HyperColumns already have enough capacity.
@@ -236,6 +240,14 @@ Without ReLu functions, this model will be equivalent to the full HyperColumns m
 The idea is to introduce more conv filters into the network. Based on other-model-1, before the final 1-by-1 conv, two new conv filters are inserted to give the model more capacity.
 
 ![](pics/model_2.png)
+
+### 6.3 Hypothesis
+It is worth to try the above two "other models", because they give some insights. It looks that the original feature maps of VGG already contains enough information. Redundance functions or capacities are not really requested, and are possibly even worse to add. 
+
+Here is an analogy. Imagine we are given only three maps: R,G,B maps. The three maps contain all information to reconstruct original color. All we have to do is to "stitch" them together. On the other hand, if we introduce more "non-linearity" and more "convolution" to them, we probably are not doing any good. 
+
+This is my hypothesis or explanation of why new ReLu or Conv filters are not very useful.
+
 
 ## 7. More... Cartoon ?
 Apply the model on cartoon, and it did not give a satisfying result. This is what I had expected because the model was never trained on cartoons. What if I have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author. After all, an author usually presents a consistent style of art of herself/himself.
