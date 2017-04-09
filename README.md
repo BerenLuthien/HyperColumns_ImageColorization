@@ -7,7 +7,7 @@ The major target of this project is to explore HyperColumns and how it can be us
 
 ## 2. Task description
 
-### Background: LAB channels
+### 2.1 Background: LAB channels
 A colorful image can be decomposed into three channels, such as RGB, LAB, HSL and HSV.  LAB is used in this project (https://en.wikipedia.org/wiki/Lab_color_space) where L means "lightness". L-channel representing a gray color image is the input of my model,  and the output is the predicted colorful image.
 ![](pics/2.jpg)
 
@@ -164,6 +164,8 @@ Actually all layers of filters have been updated to a considerable extent during
 That said, what if we only sample a portion of the feature maps ?
 
 ## 5. Simplified model
+Instead of using all feature maps, simplified model only use a portion of them.
+
 ### 5.1 Simplified model, layers 1-4, after pooling
 
 This simplified model picks up the output of the pooling of the first four layers of VGG, upscale them, and then concatenated them into a thinner HyperColumn. 
