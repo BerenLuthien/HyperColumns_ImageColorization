@@ -1,11 +1,11 @@
 # HyperColumns of CNN and Image Colorization
 
-## 1 Introduction
+## 1. Introduction
 This is the project that I've created during my time as an Artificial Intelligence Fellow with Insight Data Science in early 2017. In this project, from the pre-trained VGG model "HyperColumns" is harvested and is used to colorize gray images.
 The major target of this project is to explore HyperColumns and how it can be used in such computer vision tasks as image auto-colorizations. The training data is flower data set which is separated into train, validation and test sets. The trained model is also tested on images that are not from the flower data set. The project is done in Tensorflow 1.0 and Python.
 ![](pics/head.jpg)
 
-## 2 Task description
+## 2. Task description
 
 ### Background: LAB channels
 A colorful image can be decomposed into three channels, such as RGB, LAB, HSL and HSV.  LAB is used in this project (https://en.wikipedia.org/wiki/Lab_color_space) where L means "lightness". L-channel representing a gray color image is the input of my model,  and the output is the predicted colorful image.
