@@ -6,11 +6,13 @@ The major target of this project is to explore HyperColumns and how it can be us
 ![](pics/head.jpg)
 
 ## 2 Task description
+
+### Background: LAB channels
 A colorful image can be decomposed into three channels, such as RGB, LAB, HSL and HSV.  LAB is used in this project (https://en.wikipedia.org/wiki/Lab_color_space) where L means "lightness". L-channel representing a gray color image is the input of my model,  and the output is the predicted colorful image.
 ![](pics/2.jpg)
 
 
-### 2.1 Does one channel contains all information of the other two channels ?
+### 2.2 Does one channel contains all information of the other two channels ?
 This is the first question many people would ask themselves at the very beginning. Me too. More specifically, does L channel contains all information of the A & B channels ? No. Then how can we recover A & B channels from L channel ?
 
 The answer to this question leads to the usage of HyperColumns and a pre-trained convolutional neural network (CNN). In this project, pre-trained VGG is adopted and tweaked. VGG was trained on huge amount of images and it contains a lot of information regarding quite many of (if not all) objects in the world. Taking advantage of VGG, we should be able to colorize the gray images. VGG as "external information" is the essential reason why this colorization task can be done.
@@ -106,7 +108,7 @@ This analogy is quite similar to the feature maps of CNN.
 
 ## 4. Model
 ### 4.1 preprocess
-Since gray color image contains only one channel, in order for VGG to be able to process it, the first convolutional filter of VGG is replaced with a new filter. This new filter takes into one channel tensor and then output 64-channels tensor which is fed into the rest part of VGG.  
+Since gray color image contains only one channel, in order for VGG to be able to process it, the first convolutional filter of VGG is replaced with a new filter. This new filter takes into one channel tensor and then output 64-channels tensor which is then fed into the rest part of VGG.  
 
         W0 = utils.weight_variable([3, 3, 1, 64], name="W0")
         b0 = utils.bias_variable([64], name="b0")
@@ -163,6 +165,12 @@ That said, what if we only sample a portion of the feature maps ?
 
 ## 5. Simplified model
 ### 5.1 Simplified model, layers 1-4, after pooling
+
+This simplified model picks up the output of the pooling of the first four layers of VGG, upscale them, and then concatenated them into a thinner HyperColumn. 
+
+
+
+
         wc1 = utils.weight_variable([1, 1, 960, 2], name="wc1")
         vgg_pool_1 = image_net["pool1"]
         vgg_pool_2 = image_net["pool2"]
@@ -180,8 +188,6 @@ That said, what if we only sample a portion of the feature maps ?
         pred_AB = tf.nn.bias_add(pred_AB_conv, wc1_biase)        
     return tf.concat(values=[images, pred_AB], axis=3,  name="pred_image")
 
-This simplified model picks up the output of the pooling of the first four layers of VGG, upscale them, and then concatenated them into a thinner HyperColumn. 
-
 
 ![](pics/SimpleModel_FourLayers.png)
 
@@ -189,12 +195,14 @@ Apparently some information that VGG has to provied is lost, but this thinner mo
 
 ![](pics/partial_model_results.png)
 
-The predictions are not as good as the full model above, but still fine. Its training loss is larger than the full model.
+The predictions are not as good as the full model above, but still not very bad. 
+
+Here is its training loss, which is larger than the full model above.
 
 ![](pics/FOURlayers_loss.png)
 
 ### 5.2 Simplified model, layers 1-5, before pooling
-This simplified model picks up the output of ReLu (which means before pooling) of the first five layers (which means the top conv layer is included) of VGG, upscale them, and then concatenated them into a thinner HyperColumn. Surprisingly, its performance is almost as good as the above full model.
+This simplified model picks up the output of ReLu (which means before pooling) of the first five layers (which means the top conv layer is included) of VGG. As earlier, they are upscaled and then concatenated into a thinner HyperColumns. Surprisingly, its performance is almost as good as the full model above.
 
         wc1 = utils.weight_variable([1, 1, 1472, 2], name="wc1")
         vgg_1 = image_net["relu1_2"]
@@ -225,14 +233,13 @@ Some of its predictions are compared against the full model:
 
 This result implies that the conv-layer-5 contains important information regarding color. Further, we should probably pick up feature map before pooling rather than after pooling, apparently. Pooling operation loses some information after all.
 
-It may be interesting to try different combinations of layers, such as only output of layers 1,2,3, or only output of layeys 3,4,5, and so on. It is possible that only some specific layers contribute most to the colorization task.
+It may be interesting to try different combinations of layers, such as only the outputs of layers 1,2,3, or only the outputs of layeys 3,4,5, and so on. It is possible that only some specific layers contribute most to the colorization task.
 
 ## 6. Other models I tried
-I come up with two other models based on the concept of HyperColumns. The two models try to introduce more capacity, but they do not give better performance.  Thus, it looks that the original HyperColumns already have enough capacity.
-Anyway, here are what I've tried:
+I come up with two other models based on the concept of HyperColumns. The two models try to introduce more capacity or non-linearity, but they do not give better performance. Anyway, here are what I've tried:
 ### 6.1 other-model-1
-The idea is to introduce more non-linearity into the network. Basically the feature maps from the same layer of VGG are concatenated together to give a layer-based-HyperColumns. Each layer-based-HyperColumns is "squeezed" by 1by1 conv into a single feature map. At last, these five feature maps go through non linear function ReLu respectively, are concatenated into one HyperColumns, and at last is used to make prediction.
-Without ReLu functions, this model will be equivalent to the full HyperColumns model illustrated earlier.
+The idea is to introduce more non-linearity into the network. Basically the feature maps from the same layer of VGG are concatenated together to give a layer-based-HyperColumns. Each layer-based-HyperColumns is "squeezed" by 1by1 conv into a single feature map. At last, these five feature maps go through non linear function ReLu respectively, are concatenated into one HyperColumns, and are used to make prediction.
+Without ReLu, this model will be equivalent to the full HyperColumns model illustrated earlier.
 
 ![](pics/layered_hypercolumns.png)
 
@@ -246,7 +253,6 @@ It is worth to try the above two "other models", because they give some insights
 
 Here is an analogy. Imagine we are given only three maps: R,G,B maps. The three maps contain all information to reconstruct original color. All we have to do is to "stitch" them together. On the other hand, if we introduce more "non-linearity" and more "convolution" to them, we probably are not doing any good. 
 
-This is my hypothesis or explanation of why new ReLu or Conv filters are not very useful.
 
 
 ## 7. More... Cartoon ?
