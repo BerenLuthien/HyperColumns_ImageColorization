@@ -251,10 +251,9 @@ The idea is to introduce more conv filters into the network. Based on other-mode
 ![](pics/model_2.png)
 
 ### 6.3 Hypothesis
-It is worth to try the above two "other models", because they give some insights. It looks that the original feature maps of VGG already contains enough information. Redundance functions or capacities are not really requested, and are possibly even worse to add. 
+It is worth to try the above two "other models", because they give some insights. It looks that the original feature maps of VGG already contains enough information. Redundant functions or capacities are not really requested. 
 
-Here is an analogy. Imagine we are given only three maps: R,G,B maps. The three maps contain all information to reconstruct original color. All we have to do is to "stitch" them together. On the other hand, if we introduce more "non-linearity" and more "convolution" to them, we probably are not doing any good. 
-
+Here is an analogy. Imagine we are given only three maps: R,G,B maps. The three maps contain all information to reconstruct original color. All we have to do is to "stitch" them together. We do not have to introduce more "non-linearity" and more "convolution" to the three maps. 
 
 
 ## 7. More... Cartoon ?
