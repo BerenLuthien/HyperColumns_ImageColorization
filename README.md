@@ -237,11 +237,11 @@ This result implies that the conv-layer-5 contains important information regardi
 
 It may be interesting to try different combinations of layers, such as only the outputs of layers 1,2,3, or only the outputs of layeys 3,4,5, and so on. Is it possible that only some specific layers contribute most to the colorization task ?
 
-I've tried the ReLu output of layers 4 and 5, i.e., 1024 feature maps, and the result is not very good.
+I've tried the ReLu output of layers 4 and 5, (512+512 feature maps) and the result is not very good.
 
-I've tried the ReLu output of thelayer 5 only, i.e., 512 feature maps, and the result is not very good either.
+I've tried the ReLu output of the layer 5 only, (512 feature maps) and the result is not very good either.
 
-Since sampling layers 1 to 5 (1472 feature maps) has given as good result as the full model (5440 feature maps), it Looks that we need information distributed from all layers. 
+Since sampling layers 1 to 5 (64+128+256+512+512 feature maps) has given as good result as the full model (5440 feature maps), it Looks that we need information distributed from all layers. 
 
 ## 6. Other models I tried
 I come up with two other models based on the concept of HyperColumns. The two models try to introduce more capacity or non-linearity, but they do not give better performance. Anyway, here are what I've tried:
