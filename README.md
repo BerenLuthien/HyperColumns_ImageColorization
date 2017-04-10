@@ -261,10 +261,14 @@ Here are some examples:
 
 ![](pics/OnlyPlausible.png)
 
-The color of the reconstruction is different from that of groundtruth. However, the reconstruction loos fine (plausible). Actually, there is no way to tell what is the true color of the ground truth. A sunflower may be yellow, but also could be purple. The grass could be green in summer, but yellow in winter.
+The color of the reconstruction is different from that of groundtruth. However, the reconstruction looks fine (plausible). Actually, there is no way to tell what is the true color of the ground truth. A sunflower may be yellow, but also could be purple. The grass could be green in summer, but yellow in winter. 
 
-## 8. More... Cartoon ?
-Apply the model on cartoon, and it did not give a satisfying result. This is what I had expected because the model was never trained on cartoons. What if I have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author. After all, an author usually presents a consistent style of art of herself/himself.
+Even for human, given a gray photo we could make mistake when we hallucinate its color compared against ground truth. 
+
+We probably give sunflower a yellow color, only because most sunflowers we've seen are yellow. The same with machine. The machine has been trained on mostly yellow sunflowers. Thus, the machine gives it a yellow color. This indicates that the machine may do a good job on the same type of data that it has been trained on. 
+
+What if we apply the model on some image set that it has never seen, such as, cartoons ?
+I did apply the model on cartoons, and it did not give a satisfying result. This is what is expected because the model was never trained on cartoons. What if we have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author. After all, an author usually presents a consistent style of art of herself/himself.
 
 
 # useful linkes
