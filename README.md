@@ -201,7 +201,7 @@ The predictions are not as good as the full model above, but still not very bad.
 
 Here is its training loss, which is larger than the full model above.
 
-![](pics/FOURlayers_loss.png)
+![](pics/17_percent_model_loss.png.png)
 
 ### 5.2 Simplified model, layers 1-5, before pooling
 This simplified model picks up the output of ReLu (which means before pooling) of the first five layers (which means the top conv layer is included) of VGG. As earlier, they are upscaled and then concatenated into a thinner HyperColumns. Surprisingly, its performance is almost as good as the full model above.
@@ -227,7 +227,7 @@ This simplified model picks up the output of ReLu (which means before pooling) o
 
 
 
-![](pics/FIVElayers_simplifiedModel.png)
+![](pics/27_percent_model_loss.png.png)
 
 Some of its predictions are compared against the full model:
 
