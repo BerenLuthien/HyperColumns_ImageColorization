@@ -117,9 +117,9 @@ Since gray color image contains only one channel, in order for VGG to be able to
         image_net = vgg_net(weights, hrelu0)
 
 ### 4.2 Harvesting HyperColumns
-Further and most importantly, the HyperColumns layer is added upon it, and then the HyperColumns are "squeezed" into a two-channels tensor which correspond to the prediction of the A & B channels. 
-Imagine a chopstick is pushed through many slices of bread and get many holes, then all the holes comprise one hypercolumn, and it corresponds to one pixel of the original image.
-This process was done by 1-by-1 convolution that "stiches" the feature maps in the HyperColumns together.
+Further and most importantly, the HyperColumns layer is added upon it, and then the HyperColumns are "squeezed" into a two-channels tensor which corresponds to the prediction of the A & B channels. 
+Imagine a chopstick pushes through many slices of bread. It gives us many holes on the breads, and then all the holes comprise one HyperColumn which corresponds to one pixel of the original image.
+This process is done by 1-by-1 convolution that "stiches" the feature maps together.
 
 
         HyperColumns = tf.concat([layer_relu1_2, \
