@@ -235,7 +235,7 @@ Some of its predictions are compared against the full model:
 
 This result implies that the conv-layer-5 contains important information regarding color. Further, we should probably pick up feature map before pooling rather than after pooling, apparently. Pooling operation loses some information after all.
 
-It may be interesting to try different combinations of layers, such as only the outputs of layers 1,2,3, or only the outputs of layeys 3,4,5, and so on. It is possible that only some specific layers contribute most to the colorization task.
+It may be interesting to try different combinations of layers, such as only the outputs of layers 1,2,3, or only the outputs of layeys 3,4,5, and so on. Is it possible that only some specific layers contribute most to the colorization task ?
 
 I've tried the ReLu output of layers 4 and 5, i.e., 1024 feature maps, and the result is not very good.
 
