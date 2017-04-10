@@ -268,7 +268,7 @@ Even for human, given a gray photo we could make mistake when we hallucinate its
 We probably give sunflower a yellow color, only because most sunflowers we've seen are yellow. The same with machine. The machine has been trained on mostly yellow sunflowers. Thus, the machine gives it a yellow color. This indicates that the machine may do a good job on the same type of data that it has been trained on. 
 
 What if we apply the model on some image set that it has never seen, such as, cartoons ?
-I did apply the model on cartoons, and it did not give a satisfying result. This is what is expected because the model was never trained on cartoons. What if we have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author. After all, an author usually presents a consistent style of art of herself/himself.
+I did apply the model on cartoons, and it did not give a satisfying result. This is what is expected because the model has never been trained on cartoons. What if we have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author. After all, an author usually presents a consistent style of art of herself/himself.
 
 
 # useful linkes
