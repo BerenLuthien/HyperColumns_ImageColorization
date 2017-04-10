@@ -255,8 +255,15 @@ It is worth to try the above two "other models", because they give some insights
 
 Here is an analogy. Imagine we are given only three maps: R,G,B maps. The three maps contain all information to reconstruct original color. All we have to do is to "stitch" them together. We do not have to introduce more "non-linearity" and more "convolution" to the three maps. 
 
+## 7. Only Plausible
+The task is actually "hallucinating a plausible color version of the photograph". The reconstructed color may not be the same as or even close to the ground truth, but it is plausible.
+Here are some examples:
 
-## 7. More... Cartoon ?
+![](pics/OnlyPlausible.png)
+
+The color of the reconstruction is different from that of groundtruth. However, the reconstruction loos fine (plausible). Actually, there is no way to tell what is the true color of the ground truth. A sunflower may be yellow, but also could be purple. The grass could be green in summer, but yellow in winter.
+
+## 8. More... Cartoon ?
 Apply the model on cartoon, and it did not give a satisfying result. This is what I had expected because the model was never trained on cartoons. What if I have enough training data set of cartoons ? It will be interesting to see if it can colorize the cartoons from the same author. After all, an author usually presents a consistent style of art of herself/himself.
 
 
