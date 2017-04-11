@@ -144,7 +144,14 @@ We can see the progress that the model made during training (batch_size=10, lear
 
 ![](pics/train.png)
 
+The model does not suit a traditional early stop strategy where the validation loss may give a U shape like this:
 
+![](pics/EarlyStopTraditional.png)
+
+Instead, we can perform early stopping manually by checking the predicted the image. It is explicitly shown by the figure below:
+![](pics/EarlyStopManually.png)
+
+Why we do not use the traditional early stop ?  The major reason is that in here the validation loss is not U shape, but is L shape. More explaination is in the later section "Only Plausible".
 
 ### 4.4 Sampled results
 Here are some sampled results. Some predicted images look as good as the orginal one. There are also failures, such as the bottom left, where the statue was given some pink color.
@@ -283,7 +290,11 @@ Here are some examples:
 
 ![](pics/OnlyPlausible.png)
 
-The color of the reconstruction is different from that of groundtruth. However, the reconstruction looks fine (plausible). Actually, there is no way to tell what is the true color of the ground truth. A sunflower may be yellow, but also could be purple. The grass could be green in summer, but yellow in winter. 
+The color of the reconstruction is different from that of groundtruth. However, the reconstruction looks fine (plausible).  This means that the validation or test loss may be larger than expected, even if the model has been trained very well. In the experiments, the model gives L shape validation loss, where the loss is considerable larger than train loss which is reasonable apparently.  Further, the validation loss vibrates (goes up and down randomly) after the model has been trained well, majorly because the model may match ground truth on some images but may not on other images. Thus, traditional early stop does not work. The manual early stop method has been described in the "Training" section above.
+
+
+
+Actually, there is no way to tell what is the true color of the ground truth. A sunflower may be yellow, but also could be purple. The grass could be green in summer, but yellow in winter. 
 
 Even for human, given a gray photo we could make mistake when we hallucinate its color compared against ground truth. 
 
