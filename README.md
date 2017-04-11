@@ -245,8 +245,7 @@ I've tried :
 
 Thus, it Looks that we need information distributed from all layers.  Why ? It could be because : 
 
-* Though the top layer contains more feature maps (512 e.g.), its map size is too small (14, e.g.).
-* Though the lower layer provides larger feature map (224 e.g.), its number of featuer maps is too small (64, e.g.)
+* Though the top layer contains more feature maps (512 maps e.g.), its map size is too small (14-by-14, e.g.). On the other hand, though the lower layer provides larger feature map (224-by-224 e.g.), its number of featuer maps is too small (64 maps, e.g.)
 Refer to http://cs231n.github.io/convolutional-networks/#case
 
 * Different layer contains different information. 
