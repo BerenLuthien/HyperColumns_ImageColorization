@@ -245,8 +245,13 @@ I've tried :
 
 Thus, it Looks that we need information distributed from all layers.  Why ? It could be because : 
 
-* The top layer contains more feature maps (512 compared against 64, e.g.), while the lower layer provides larger feature map (112 compared against 14, e.g.). http://cs231n.github.io/convolutional-networks/#case
-* Different layer contains different information. http://cs231n.github.io/understanding-cnn/
+* Though the top layer contains more feature maps (512 e.g.), its map size is too small (14, e.g.).
+* Though the lower layer provides larger feature map (224 e.g.), its number of featuer maps is too small (64, e.g.)
+Refer to http://cs231n.github.io/convolutional-networks/#case
+
+* Different layer contains different information. 
+Refer to http://cs231n.github.io/understanding-cnn/
+
 
 ## 6. Other models I tried
 I come up with two other models based on the concept of HyperColumns. The two models try to introduce more capacity or non-linearity, but they do not give better performance. Anyway, here are what I've tried:
