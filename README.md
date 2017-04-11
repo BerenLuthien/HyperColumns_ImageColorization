@@ -237,14 +237,15 @@ This result implies that the conv-layer-5 contains important information regardi
 
 It may be interesting to try different combinations of layers, such as only the outputs of layers 1,2,3, or only the outputs of layeys 3,4,5, and so on. Is it possible that only some specific layers contribute most to the colorization task ?
 
-I've tried the ReLu output of layers 4 and 5, (512+512 feature maps) and the result is not very good.
+I've tried :
 
-I've tried the ReLu output of the layer 5 only, (512 feature maps) and the result is not very good either.
+* the ReLu output of layers 4 and 5, (512+512 feature maps) and the result is not very good.
+* the ReLu output of the layer 5 only, (512 feature maps) and the result is not very good either.
+* the ReLu output of the layers 1 to 5, (64+128+256+512+512 feature maps) and it has given as good result as the full model (5440 feature maps). 
 
-Since sampling layers 1 to 5 (64+128+256+512+512 feature maps) has given as good result as the full model (5440 feature maps), it Looks that we need information distributed from all layers.  Why ? It could be because : 
+Thus, it Looks that we need information distributed from all layers.  Why ? It could be because : 
 
 * The top layer contains more feature maps (512 compared against 64, e.g.), while the lower layer provides larger feature map (112 compared against 14, e.g.). http://cs231n.github.io/convolutional-networks/#case
-
 * Different layer contains different information. http://cs231n.github.io/understanding-cnn/
 
 ## 6. Other models I tried
