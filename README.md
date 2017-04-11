@@ -148,7 +148,8 @@ The model does not suit a traditional early stop strategy where the validation l
 
 ![](pics/EarlyStopTraditional.png)
 
-Instead, we can perform early stopping manually by checking the predicted the image. It is explicitly shown by the figure below:
+Instead, we can perform early stopping manually by checking the predicted the image. It is explicitly shown by the analogous figure below:
+
 ![](pics/EarlyStopManually.png)
 
 Why we do not use the traditional early stop ?  The major reason is that in here the validation loss is not U shape, but is L shape. More explaination is in the later section "Only Plausible".
