@@ -251,6 +251,13 @@ Refer to http://cs231n.github.io/convolutional-networks/#case
 * Different layer contains different information. 
 Refer to http://cs231n.github.io/understanding-cnn/
 
+At last, I also tried harvesting feature maps & HyperColumns right after conv (i.e., before ReLu). It gives basically same result as harvesting after ReLu (i.e., right before pooling).
+
+### 5.3 Experimental Conclusions: 
+* Need info from all the five layers.
+* Do not need all feature maps. Sampling is fine as long sampling all layers.
+* Should harvest feature map before pooling, but does not matter before ReLu or after ReLu.
+
 
 ## 6. Other models I tried
 I come up with two other models based on the concept of HyperColumns. The two models try to introduce more capacity or non-linearity, but they do not give better performance. Anyway, here are what I've tried:
