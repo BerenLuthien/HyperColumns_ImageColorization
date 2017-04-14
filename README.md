@@ -295,10 +295,12 @@ The color of the reconstruction is different from that of groundtruth. However, 
 
 
 
-Actually, there is no way to tell what is the true color of the ground truth. A sunflower may be yellow, but also could be purple. The grass could be green in summer, but yellow in winter. 
+Actually, there is no way to tell what is the true color of the ground truth. A sunflower may be yellow, but also could be purple. The grass could be green in summer, but yellow in winter. This is why the validation loss could be always large, and L shape. 
+
+![](pics/Lshape.png)
+
 
 Even for human, given a gray photo we could make mistake when we hallucinate its color compared against ground truth. 
-
 We probably give sunflower a yellow color, only because most sunflowers we've seen are yellow. The same with machine. The machine has been trained on mostly yellow sunflowers. Thus, the machine gives it a yellow color. This indicates that the machine may do a good job on the same type of data that it has been trained on. 
 
 What if we apply the model on some image set that it has never seen, such as, cartoons ?
