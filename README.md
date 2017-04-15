@@ -262,9 +262,9 @@ Refer to http://cs231n.github.io/understanding-cnn/
 At last, I also tried harvesting feature maps & HyperColumns right after conv (i.e., before ReLu). It gives basically same result as harvesting after ReLu (i.e., right before pooling).
 
 ### 5.3 Experimental Conclusions: 
-* Need info from all the five layers.
-* Do not need all feature maps. Sampling is fine as long sampling all layers.
-* Should harvest feature map before pooling, but does not matter before ReLu or after ReLu.
+* Need info from all the five conv layers.
+* Do not need all feature maps. Sampling is fine as long sampling all layers. -- Probably adjacent layers contain similar information, and this is why we can sample the layers but avoid performance degrading.
+* Should harvest feature map before pooling, but it does not matter before ReLu or after ReLu.
 
 
 ## 6. Other models I tried
@@ -284,6 +284,9 @@ The idea is to introduce more conv filters into the network. Based on other-mode
 It is worth to try the above two "other models", because they give some insights. It looks that the original feature maps of VGG already contains enough information. Redundant functions or capacities are not really requested. 
 
 Here is an analogy. Imagine we are given only three maps: R,G,B maps. The three maps contain all information to reconstruct original color. All we have to do is to "stitch" them together. We do not have to introduce more "non-linearity" and more "convolution" to the three maps. 
+
+### 6.4 Residual
+I actually also tried residual model as proposed by some others (link given at the end), but it did not give better performance than a reasonable sampling scheme. The experiments show that residual is redundant as well. A reasonable sampling of the feature maps across all conv layers already contain enough information to recover the color.
 
 ## 7. Only Plausible
 The task is actually "hallucinating a plausible color version of the photograph". The reconstructed color may not be the same as or even close to the ground truth, but it is plausible.
