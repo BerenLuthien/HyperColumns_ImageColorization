@@ -158,7 +158,7 @@ Why we do not use the traditional early stop ?  The major reason is that in here
 Here are some sampled results. Some predicted images look as good as the orginal one. There are also failures, such as the bottom left, where the statue was given some pink color.
 
 ![](pics/9.jpg)
-Applied the model on illustration pictures of old books:
+Applied the model on illustration pictures of old books, and here are some picked up good results (not all predictions are good since the model is not really trained on such kind of images):
 
 ![](pics/illustration.png)
 
