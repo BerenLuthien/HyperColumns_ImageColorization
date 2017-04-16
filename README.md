@@ -286,7 +286,7 @@ It is worth to try the above two "other models", because they give some insights
 Here is an analogy. Imagine we are given only three maps: R,G,B maps. The three maps contain all information to reconstruct original color. All we have to do is to "stitch" them together. We do not have to introduce more "non-linearity" and more "convolution" to the three maps. 
 
 ### 6.4 Residual
-I actually also tried residual model as proposed by some others (link given at the end), but it did not give better performance than a reasonable sampling scheme. The experiments show that residual is redundant as well. A reasonable sampling of the feature maps across all conv layers already contain enough information to recover the color.
+I actually also tried residual model as proposed by some others (link given at the end), but it did not give better performance. It looks that a reasonable sampling of the feature maps across all conv layers already contain enough information in order to recover the color. Fancier design is not needed.
 
 ## 7. Only Plausible
 The task is actually "hallucinating a plausible color version of the photograph". The reconstructed color may not be the same as or even close to the ground truth, but it is plausible.
