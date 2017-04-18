@@ -247,19 +247,20 @@ It may be interesting to try different combinations of layers, such as only the 
 
 I've tried :
 
-* the ReLu output of layers 4 and 5, (512+512 feature maps) and the result is not very good.
-* the ReLu output of the layer 5 only, (512 feature maps) and the result is not very good either.
-* the ReLu output of the layers 1 to 5, (64+128+256+512+512 feature maps) and it has given as good result as the full model (5440 feature maps). 
+* the ReLu output of the conv layers 3,4,5, and its performance is close to that of the full model. This is a very interesting signal that the higher conv layers are majorly useful for colorization. 
+* the ReLu output of the conv layers 1 to 5, (64+128+256+512+512 feature maps) and it has given as good result as the full model (5440 feature maps). This is not very surprising and details are given later as below.
+* the ReLu output of the conv layers 4 and 5, (512+512 feature maps) and the result is not very good. Probably this is because we have lost too much information by skiping layer 3.
+* the ReLu output of the conv layer 5 only, (512 feature maps) and the result is not very good either.
 
-Thus, it Looks that we need information distributed from all layers.  Why ? It could be because : 
+Thus, it Looks that we need information distributed from all conv layers (or at least the higher conv layers).  Why ? It could be because : 
 
-* Though the top layer contains more feature maps (512 maps e.g.), its map size is too small (14-by-14, e.g.). On the other hand, though the lower layer provides larger feature map (224-by-224 e.g.), its number of featuer maps is too small (64 maps, e.g.)
+* Though the higher conv layer contains more feature maps (512 maps e.g.), its map size is too small (14-by-14, e.g.). On the other hand, though the lower layer provides larger feature map (224-by-224 e.g.), its number of featuer maps is too small (64 maps, e.g.)
 Refer to http://cs231n.github.io/convolutional-networks/#case
 
-* Different layer contains different information. 
+* Different layer contains different information. Possibly the lowest layer contains little information regarding color (only hypothesis).
 Refer to http://cs231n.github.io/understanding-cnn/
 
-At last, I also tried harvesting feature maps & HyperColumns right after conv (i.e., before ReLu). It gives basically same result as harvesting after ReLu (i.e., right before pooling).
+At last, I also tried harvesting feature maps & HyperColumns right after conv (i.e., before ReLu). It gives basically some same result as harvesting after ReLu (i.e., right before pooling).
 
 ### 5.3 Experimental Conclusions: 
 * Need info from all the five conv layers.
