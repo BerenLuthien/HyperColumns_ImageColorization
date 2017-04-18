@@ -264,11 +264,12 @@ At last, I also tried harvesting feature maps & HyperColumns right after conv (i
 
 ### 5.3 Experimental Conclusions: 
 * Need info from all the five conv layers.
-* Should harvest feature map before pooling, but it does not matter before ReLu or after ReLu.
-* Do not need all feature maps. Sampling is fine as long sampling all layers. -- Probably adjacent layers contain similar information, and this is why we can sample the layers but avoid performance degrading. Here is an analogy: in order to recover a sine wave, how many samples we need, 1000 or 100? The performance (recover error) of 1000 samples is almost the same as the performance of 100 samples because the samples that are very close to each other give similar information.
+* Should harvest feature map before pooling. It does not matter before ReLu or after ReLu, which is a a little bit surprising result. 
+* Do not need all feature maps. Sampling is fine as long sampling the output of the layers (before pooling). -- Probably adjacent sub-layers in the same layer contain correlated information, and this is why we can sample the layers but avoid performance degrading.  Here is an analogy: in order to recover a sine wave, how many samples we need, 1000 or 100? The performance (recover error) of 1000 samples is almost the same as the performance of 100 samples because the samples that are very close to each other give similar information.
 
 ![](pics/sine_sample_.png)
 
+* On the other hand, different layers (e.g., layer 4 and layer 5) may be quite different, due to the pooling operation between them (there is no pooling between sublayers within the same layer). 
 
 ## 6. Other models I tried
 I come up with two other models based on the concept of HyperColumns. The two models try to introduce more capacity or non-linearity, but they do not give better performance. Anyway, here are what I've tried:
