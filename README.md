@@ -304,7 +304,6 @@ The color of the reconstruction is different from that of groundtruth. However, 
 
 Actually, there is no way to tell what is the true color of the ground truth. A sunflower may be yellow, but also could be purple. The grass could be green in summer, but yellow in winter. This is why the validation loss could be always large, and L shape. 
 
-![](pics/Lshape.png)
 
 
 Even for human, given a gray photo we could make mistake when we hallucinate its color compared against ground truth. 
