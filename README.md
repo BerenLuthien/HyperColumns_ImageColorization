@@ -272,24 +272,12 @@ At last, I also tried harvesting feature maps & HyperColumns right after conv (i
 * On the other hand, different layers (e.g., layer 4 and layer 5) may be quite different, due to the pooling operation between them (there is no pooling between sublayers within the same layer). 
 
 ## 6. Other models I tried
-I come up with two other models based on the concept of HyperColumns. The two models try to introduce more capacity or non-linearity, but they do not give better performance. Anyway, here are what I've tried:
-### 6.1 other-model-1
-The idea is to introduce more non-linearity into the network. Basically the feature maps from the same layer of VGG are concatenated together to give a layer-based-HyperColumns. Each layer-based-HyperColumns is "squeezed" by 1by1 conv into a single feature map. At last, these five feature maps go through non linear function ReLu respectively, are concatenated into one HyperColumns, and are used to make prediction.
-Without ReLu, this model will be equivalent to the full HyperColumns model illustrated earlier.
+### 6.1 more conv and non-linearity
+I come up with some model based on the concept of HyperColumns. It tries to introduce more capacity and non-linearity, but did not give better performance. Anyway, here are what I've tried. Basically the feature maps from the same layer of VGG are concatenated together to give a layer-based-HyperColumns. Each layer-based-HyperColumns is "squeezed" by 1by1 conv into a single feature map. At last, these five feature maps go through non linear function ReLu respectively, are concatenated into one HyperColumns, and are used to make prediction. 
 
-![](pics/layered_hypercolumns.png)
+It is worth to try, because it gives some insights. It looks that the original feature maps of VGG already contains enough information. Redundant functions or capacities are not really requested. 
 
-### 6.2 other-model-2
-The idea is to introduce more conv filters into the network. Based on other-model-1, before the final 1-by-1 conv, two new conv filters are inserted to give the model more capacity.
-
-![](pics/model_2.png)
-
-### 6.3 Hypothesis
-It is worth to try the above two "other models", because they give some insights. It looks that the original feature maps of VGG already contains enough information. Redundant functions or capacities are not really requested. 
-
-Here is an analogy. Imagine we are given only three maps: R,G,B maps. The three maps contain all information to reconstruct original color. All we have to do is to "stitch" them together. We do not have to introduce more "non-linearity" and more "convolution" to the three maps. 
-
-### 6.4 Residual
+### 6.2 Residual
 I actually also tried residual model as proposed by some others, but it only gives as good performance as sampling all conv layers. It looks that a reasonable sampling of the feature maps across all conv layers already contain enough information in order to recover the color. Fancier design is not really needed.
 
 ## 7. Only Plausible
