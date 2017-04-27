@@ -263,13 +263,14 @@ Refer to http://cs231n.github.io/understanding-cnn/
 At last, I also tried harvesting feature maps & HyperColumns right after conv (i.e., before ReLu). It gives basically some same result as harvesting after ReLu (i.e., right before pooling).
 
 ### 5.3 Experimental Conclusions: 
-* Need info from all the five conv layers.
+* Need info from all the five conv layers (or at least the top conv layers)
 * Should harvest feature map before pooling. It does not matter before ReLu or after ReLu, which is a a little bit surprising result. 
 * Do not need all feature maps. Sampling is fine as long sampling the output of the layers (before pooling). -- Probably adjacent sub-layers in the same layer contain correlated information, and this is why we can sample the layers but avoid performance degrading.  Here is an analogy: in order to recover a sine wave, how many samples we need, 1000 or 100? The performance (recover error) of 1000 samples is almost the same as the performance of 100 samples because the samples that are very close to each other give similar information.
 
 ![](pics/sine_sample_.png)
 
 * On the other hand, different layers (e.g., layer 4 and layer 5) may be quite different, due to the pooling operation between them (there is no pooling between sublayers within the same layer). 
+* Eventually, it is possible that sampled model (i.e., simplified model) may not perform well on huge amount of dataset, e.g., 1000 categories of 1.2 Million images like ImageNet dataset. Huge amount of data and large number of categories of data may request a powerful model to handle. It is possible that a sampled model performs as well as the full model only because the amount of data and the number of categories of data are relatively small in this project.-- If this is true, the idea of  simplifyng model is still very useful, especially when we only need work on some specific type of data, e.g., predicting color for all the cartoon books from the same author. This means we can train a separate model for each author. 
 
 ## 6. Other models I tried
 ### 6.1 more conv and non-linearity
