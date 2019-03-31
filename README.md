@@ -1,5 +1,8 @@
 # HyperColumns of CNN and Image Colorization
-This project is a revised version of https://arxiv.org/abs/1411.5752 and much of these codes are based on  https://tinyclouds.org/colorize/. 
+This project is a revised version of https://arxiv.org/abs/1411.5752 and much of these codes are based on  https://tinyclouds.org/colorize/. This project is to 
+- illustrate hypercolumns and its usage in image colorization (which was proposed by https://arxiv.org/abs/1411.5752)
+The project is different from the above two links in that it
+- made trials and validated that a careful sampling of feature maps (i.e., a subset of feature maps) give comparable performance of using all feature maps, so as to reduce complexity.
 
 ## 1. Introduction
 In this project, from the pre-trained VGG model "HyperColumns" is harvested and is used to colorize gray images.
